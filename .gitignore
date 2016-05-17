@@ -1,0 +1,11 @@
+.DS_Store
+node_modules/
+dist/
+*.d.ts
+.vscode/
+typings.json
+aws-credentials.json
+aws-upload.conf.js
+npm-debug.log
+spotifyApiConfig.js
+googleAnalyticsConfig.js
