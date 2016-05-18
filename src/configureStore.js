@@ -11,7 +11,6 @@ import { reducer as mosaic } from './mosaic';
 import { reducer as recommended } from './recommended';
 import rootSaga from './rootSaga';
 
-const logger = createLogger();
 const reducer = combineReducers(
   {
     auth: authReducer,
@@ -29,11 +28,21 @@ const reducer = combineReducers(
   }
 );
 
+const sagaMiddleware = createSagaMiddleware();
+const middlewares = [sagaMiddleware];
+
+if (process.env.NODE_ENV !== 'production') {
+  const logger = createLogger();
+  middlewares.push(logger);
+}
+
 export default function configureStore(initialState) {
-  const sagaMiddleware = createSagaMiddleware();
-  const store = createStore(reducer, initialState, compose(
-    applyMiddleware(sagaMiddleware, logger),
-    window.devToolsExtension &&
+  const store = createStore(
+    reducer,
+    initialState,
+    compose(
+      applyMiddleware(...middlewares),
+      window.devToolsExtension &&
       process.env.NODE_ENV !== 'production' ? window.devToolsExtension() : f => f
   ));
 
