@@ -150,7 +150,7 @@ class RecommendedPage extends Component {
                     onClick={() => this.handleTrackClick(t.id)}
                   >
                     <FadeImage
-                      src={t.album.images[1].url}
+                      src={t.album.images[0].url}
                       style={{
                         minWidth: '150px',
                         maxWidth: '150px',
