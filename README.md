@@ -62,7 +62,7 @@ npm run dev
 2. Run the following commands in the app's root directory then check the /dist folder
 ```
 npm install
-npm run build (npm run build-win if using Windows)
+npm run build
 ```
 
 ## Good times!
