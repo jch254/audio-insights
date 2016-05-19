@@ -12,7 +12,9 @@ export function parseJSON(response) {
 }
 
 export function getAlbumArtUrlForTrack(track) {
-  if (track.album.images[0]) {
+  if (track.album.images[1]) {
+    return track.album.images[1].url;
+  } else if (track.album.images[0]) {
     return track.album.images[0].url;
   }
 
