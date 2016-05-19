@@ -16,7 +16,7 @@ export function getAlbumArtUrlForTrack(track) {
     return track.album.images[0].url;
   }
 
-  return 'http://img.jch254.com/Blank.jpg'
+  return 'http://img.jch254.com/Blank.jpg';
 }
 
 export const ID_TOKEN = 'id_token';
