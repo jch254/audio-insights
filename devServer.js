@@ -27,7 +27,7 @@ app.use(webpackHotMiddleware(compiler));
 
 // This is necessary to handle URL correctly since client uses Browser History
 app.get('*', function (request, response){
-  response.sendFile(path.resolve(__dirname, '', 'index.html'))
+  response.sendFile(path.resolve(__dirname, '', './dist/index.html'))
 })
 
 app.listen(WEBPACK_PORT, 'localhost', function (err, result) {

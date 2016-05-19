@@ -2,6 +2,7 @@
 
 var path = require('path');
 var webpack = require('webpack');
+var config = require('./config');
 
 module.exports = {
   entry: [
@@ -9,8 +10,9 @@ module.exports = {
     path.join(__dirname, 'src/index.js')
   ],
   output: {
-    path: path.join(__dirname, '/dist'),
-    filename: 'bundle.js'
+    path: path.join(__dirname, 'dist/js'),
+    filename: 'bundle.js',
+    publicPath: '/js'
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
@@ -20,9 +22,7 @@ module.exports = {
         screw_ie8: true
       }
     }),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-    })
+    new webpack.DefinePlugin(config)
   ],
   module: {
     loaders: [
@@ -42,8 +42,8 @@ module.exports = {
       },
       {
         test: /\.css?$/,
-          loaders: ['style', 'raw'],
-          include: __dirname
+        loaders: ['style', 'raw'],
+        include: __dirname
       },
       { test: /\.(jpe?g|png|gif|svg)$/,
         loader: 'url',

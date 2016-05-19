@@ -2,7 +2,6 @@ import 'isomorphic-fetch';
 import { put } from 'redux-saga/effects';
 
 import { actions as authActions } from './auth';
-import config from './spotifyApiConfig';
 import { checkStatus, parseJSON } from './utils';
 
 const baseUrl = 'https://api.spotify.com';
@@ -23,10 +22,10 @@ function getFetchInit(idToken, requestMethod, body) {
 
 export function redirectToSpotifyLogin(returnPath) {
   window.location = `https://accounts.spotify.com/authorize?
-client_id=${config.clientId}&
-redirect_uri=${config.callbackUri}&
-scope=${config.scope}&
-response_type=token&state=${returnPath}`;
+client_id=${encodeURIComponent(process.env.SPOTIFY_CLIENT_ID)}&
+redirect_uri=${encodeURIComponent(process.env.SPOTIFY_CALLBACK_URI)}&
+scope=${encodeURIComponent(process.env.SPOTIFY_SCOPES)}&
+response_type=token&state=${encodeURIComponent(returnPath)}`;
 };
 
 export function fetchUserProfile(idToken) {

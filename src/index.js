@@ -8,14 +8,13 @@ import useScroll from 'react-router-scroll';
 import ga from 'react-ga';
 
 import configureStore from './configureStore';
-import config from './googleAnalyticsConfig';
 import routes from './routes';
 
 const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
 
 if (process.env.NODE_ENV === 'production') {
-  ga.initialize(config.id);
+  ga.initialize(process.env.GA_ID);
 }
 
 function logPageView() {

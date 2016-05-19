@@ -2,6 +2,7 @@
 
 var path = require('path');
 var webpack = require('webpack');
+var config = require('./config');
 
 module.exports = {
   devtool: 'eval-source-map',
@@ -11,16 +12,15 @@ module.exports = {
     './src/index'
   ],
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname, 'dist/js'),
     filename: 'bundle.js',
-    publicPath: '/dist'
+    publicPath: '/js'
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-    new webpack.DefinePlugin({'process.env.NODE_ENV': JSON.stringify('development')
-    })
+    new webpack.DefinePlugin(config)
   ],
   resolve: {
     extensions: ['', '.js', '.jsx']

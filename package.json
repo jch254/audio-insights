@@ -5,10 +5,10 @@
   "license": "MIT",
   "scripts": {
     "dev": "babel-node devServer.js",
-    "build": "rimraf dist && NODE_ENV=production webpack --config ./webpack.prod.config.js --progress --profile --colors && copyfiles index.html favicon.ico dist",
-    "build-win": "rimraf dist&&set NODE_ENV=production&&webpack --config ./webpack.prod.config.js --progress --profile --colors",
+    "build": "rimraf dist/js && webpack --config ./webpack.prod.config.js --progress --profile --colors",
+    "build-win": "rimraf dist/js&&set NODE_ENV=production&&webpack --config ./webpack.prod.config.js --progress --profile --colors",
     "lint": "eslint src || exit 0",
-    "clean": "rimraf dist"
+    "clean": "rimraf dist/js"
   },
   "repository": {
     "type": "git",

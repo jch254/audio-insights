@@ -49,17 +49,17 @@ acquired building this app on future projects.
 1. Clone this repository
 2. Create a new [Spotify API app](https://developer.spotify.com/my-applications)
 3. Add http://localhost:3001/spotifylogincallback as a Redirect URI for your newly created app (don't forget to press save)
-4. Copy src/spotifyApiConfigExample.js to src/spotifyApiConfig.js (gitignored)
-4. Update the newly copied src/spotifyApiConfig.js with your app's Client ID
-6. Copy src/googleAnalyticsConfigExample.js to src/googleAnalyticsConfig.js (gitignored)
-7. Run the following commands in the app's root directory then open http://localhost:3001
+4. Copy configExmple.js to config.js (gitignored)
+5. Update the newly copied config.js with your Spotify API app's Client ID
+6. Run the following commands in the app's root directory then open http://localhost:3001
 ```
 npm install
 npm run dev
 ```
 
 ## Building the production version
-1. Run the following commands in the app's root directory then check the /dist folder
+1. Update the config.js file with your production config values
+2. Run the following commands in the app's root directory then check the /dist folder
 ```
 npm install
 npm run build (npm run build-win if using Windows)
