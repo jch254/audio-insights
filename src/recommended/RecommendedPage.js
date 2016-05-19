@@ -73,6 +73,7 @@ class RecommendedPage extends Component {
               >
                 {
                   playlistCreated ?
+                    !error &&
                     <ButtonOutline
                       mt={2}
                       pill
@@ -81,6 +82,7 @@ class RecommendedPage extends Component {
                       style={{ cursor: 'default' }}
                       children="Playlist saved to Spotify"
                     /> :
+                    !error &&
                     <Button
                       mt={2}
                       pill
