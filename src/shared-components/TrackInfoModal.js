@@ -93,7 +93,10 @@ export default class TrackInfoModal extends Component {
                 />
                 <Flex mt={2} mr={2} wrap column style={{ width: '300px' }}>
                   <Heading color="black" level={3} children={selectedTrack.name} />
-                  <Text color="black" children={selectedTrack.artists[0].name} />
+                  <Text
+                    color="black"
+                    children={selectedTrack.artists.map(a => a.name).join(', ')}
+                  />
                   <Text color="black" children={selectedTrack.album.name} />
                   <Divider ml={0} width={150} />
                   <Flex column={windowWidth > 480} style={{ marginTop: '-16px' }}>

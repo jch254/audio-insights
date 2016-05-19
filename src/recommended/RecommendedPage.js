@@ -164,7 +164,7 @@ class RecommendedPage extends Component {
                     />
                     <Box>
                       <Heading level={3} children={t.name} />
-                      <Text small children={t.artists[0].name} />
+                      <Text small children={t.artists.map(a => a.name).join(', ')} />
                       <Text small children={t.album.name} />
                     </Box>
                     <Space auto />
