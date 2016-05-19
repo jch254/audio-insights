@@ -23,13 +23,13 @@ on using React and Redux best practices and making the app as responsive as poss
 I'd be thankful for any feedback or suggestions. I look forward to applying the skills I've
 acquired building this app on future projects.
 
-![Mosaic](http://ai.603.nu/img/Mosaic.png)
+![Mosaic](http://img.jch254.com/Mosaic.png)
 
-![Modal](http://ai.603.nu/img/Modal.png)
+![Modal](http://img.jch254.com/Modal.png)
 
-![Recommended](http://ai.603.nu/img/Recommended.png)
+![Recommended](http://img.jch254.com/Recommended.png)
 
-![Artists](http://ai.603.nu/img/Artists.png)
+![Artists](http://img.jch254.com/Artists.png)
 
 ## Technologies Used
 
