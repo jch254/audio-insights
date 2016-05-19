@@ -2,7 +2,6 @@
 
 var path = require('path');
 var webpack = require('webpack');
-var config = require('./config');
 
 module.exports = {
   entry: [
@@ -22,7 +21,6 @@ module.exports = {
         screw_ie8: true
       }
     }),
-    new webpack.DefinePlugin(config)
   ],
   module: {
     loaders: [
