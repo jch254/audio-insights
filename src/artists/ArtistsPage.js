@@ -42,7 +42,9 @@ class ArtistsPage extends Component {
                 artists.map((a, index) =>
                   <FadeImage
                     key={index}
-                    src={`${a.images[1] ? a.images[1].url : a.images[0]}?${new Date().getTime()}`}
+                    src={
+                      `${a.images[1] ? a.images[1].url : a.images[0].url}?${new Date().getTime()}`
+                    }
                     style={{
                       maxWidth: '100%',
                       height: 'auto',
