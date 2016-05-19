@@ -5,10 +5,9 @@
   "license": "MIT",
   "scripts": {
     "dev": "babel-node devServer.js",
-    "build": "rimraf dist/js && webpack --config ./webpack.prod.config.js --progress --profile --colors",
-    "build-win": "rimraf dist/js&&set NODE_ENV=production&&webpack --config ./webpack.prod.config.js --progress --profile --colors",
+    "build": "webpack --config ./webpack.prod.config.js --progress --profile --colors",
+    "build-win": "set NODE_ENV=production&&webpack --config ./webpack.prod.config.js --progress --profile --colors",
     "lint": "eslint src || exit 0",
-    "clean": "rimraf dist/js"
   },
   "repository": {
     "type": "git",
@@ -57,7 +56,6 @@
     "express": "^4.13.4",
     "file-loader": "^0.8.5",
     "raw-loader": "^0.5.1",
-    "rimraf": "^2.5.2",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.12.14",
