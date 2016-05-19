@@ -7,7 +7,7 @@
     "dev": "babel-node devServer.js",
     "build": "webpack --config ./webpack.prod.config.js --progress --profile --colors",
     "build-win": "set NODE_ENV=production&&webpack --config ./webpack.prod.config.js --progress --profile --colors",
-    "lint": "eslint src || exit 0",
+    "lint": "eslint src || exit 0"
   },
   "repository": {
     "type": "git",
