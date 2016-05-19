@@ -60,7 +60,7 @@ npm run dev
 ```
 
 ## Building the production version
-1. Update the config.js file with your production config values
+1. Update config.js with your production config values
 2. Run the following commands in the app's root directory then check the /dist folder
 ```
 npm install
