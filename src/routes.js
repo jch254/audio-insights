@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
-import AboutPage from './components/AboutPage';
-import GlossaryPage from './components/GlossaryPage';
-import HomePage from './components/HomePage';
-import NotFoundPage from './components/NotFoundPage';
+import AboutPage from './shared-components/AboutPage';
+import GlossaryPage from './shared-components/GlossaryPage';
+import HomePage from './shared-components/HomePage';
+import NotFoundPage from './shared-components/NotFoundPage';
 import { components as appComponents } from './app';
 import { components as artistsComponents } from './artists';
 import { components as authComponents } from './auth';

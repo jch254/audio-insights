@@ -10,8 +10,7 @@ import {
 import { getIsHydrated } from './selectors';
 
 import { selectors as appSelectors } from '../app';
-import { fetchArtists } from '../spotifyApiService';
-import { handleSpotifyApiError } from '../utils';
+import { fetchArtists, handleSpotifyApiError } from '../spotifyApiService';
 
 export function* fetchArtistsSaga(idToken) {
   try {
@@ -22,6 +21,10 @@ export function* fetchArtistsSaga(idToken) {
     } else {
       const currentTerm = yield select(appSelectors.getCurrentTerm);
       const { artists } = yield call(fetchArtists, idToken, currentTerm);
+
+      if (artists.length === 0) {
+        throw new Error('Unfortunately you do not have enough Spotify data to display top artists');
+      }
 
       yield put(artistsSuccess(artists));
     }

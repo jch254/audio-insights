@@ -36,7 +36,13 @@ export function* fetchRecommendedTracksSaga(idToken) {
       yield call(mosaicSagas.fetchMosaicSaga, idToken);
 
       const tracks = yield select(mosaicSelectors.getTracks);
-      const seedArtistIds = getSeedArtistIds(tracks);
+
+      if (tracks.length === 0) {
+        throw new Error(
+          'Unfortunately you do not have enough Spotify data to generate a recommended playlist');
+      }
+
+      const seedArtistIds = getCommaSeparatedSeedArtistIds(tracks);
       const targetAttributes = {
         acousticness: getAverageAudioFeature(tracks, t => t.acousticness),
         danceability: getAverageAudioFeature(tracks, t => t.danceability),
@@ -44,7 +50,8 @@ export function* fetchRecommendedTracksSaga(idToken) {
         instrumentalness: getAverageAudioFeature(tracks, t => t.instrumentalness),
         speechiness: getAverageAudioFeature(tracks, t => t.speechiness),
         valence: getAverageAudioFeature(tracks, t => t.valence),
-      }
+      };
+
       const { recommendedTracks } =
         yield call(fetchRecommendedTracks, idToken, targetAttributes, seedArtistIds);
 
@@ -101,11 +108,17 @@ export function* watchCreateRecommendedPlaylistRequest() {
 }
 
 function getAverageAudioFeature(tracks, featureSelector) {
-  return tracks.map(featureSelector).reduce((a, b) => a + b, 0) / tracks.length;
+  return tracks.length !== 0 ?
+    tracks.map(featureSelector).reduce((a, b) => a + b, 0) / tracks.length :
+    0;
 }
 
-function getSeedArtistIds(tracks) {
+function getCommaSeparatedSeedArtistIds(tracks) {
   // TODO: Improve function
+
+  if (tracks.length === 0) {
+    return '';
+  }
 
   const allArtistIds = tracks
     .map(t => t.artists)

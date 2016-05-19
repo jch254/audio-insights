@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import FullscreenLoader from '../components/FullscreenLoader';
+import FullscreenLoader from '../shared-components/FullscreenLoader';
 import { loginRequest } from './actions';
 import { getIdToken } from './selectors';
 

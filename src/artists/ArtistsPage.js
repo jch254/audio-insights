@@ -10,9 +10,9 @@ import {
 import { artistsRequest } from './actions';
 import { getArtists, getError, getIsFetching } from './selectors';
 
-import FadeImage from '../components/FadeImage';
-import FadeInTransition from '../components/FadeInTransition';
-import FullscreenLoader from '../components/FullscreenLoader';
+import FadeImage from '../shared-components/FadeImage';
+import FadeInTransition from '../shared-components/FadeInTransition';
+import FullscreenLoader from '../shared-components/FullscreenLoader';
 import { selectors as authSelectors } from '../auth';
 
 class ArtistsPage extends Component {

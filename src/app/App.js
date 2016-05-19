@@ -5,10 +5,10 @@ import { Flex } from 'reflexbox';
 import { termChange, toggleDropdown } from './actions';
 import { getCurrentTerm, getDropdownOpen } from './selectors';
 
-import AppFooter from '../components/AppFooter';
-import Navbar from '../components/Navbar';
-import TrackInfoModal from '../components/TrackInfoModal';
-import WindowDimensionsWrapper from '../components/WindowDimensionsWrapper';
+import AppFooter from '../shared-components/AppFooter';
+import Navbar from '../shared-components/Navbar';
+import TrackInfoModal from '../shared-components/TrackInfoModal';
+import WindowDimensionsWrapper from '../shared-components/WindowDimensionsWrapper';
 import { actions as artistsActions } from '../artists';
 import { selectors as authSelectors } from '../auth';
 import { actions as mosaicActions } from '../mosaic';

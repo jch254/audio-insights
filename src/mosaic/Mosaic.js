@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Flex } from 'reflexbox';
 
-import FadeImage from '../components/FadeImage';
+import FadeImage from '../shared-components/FadeImage';
 
 class Mosaic extends Component {
   getColumnCount() {

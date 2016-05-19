@@ -24,9 +24,9 @@ import {
   getTargetAttributes,
 } from './selectors';
 
-import FadeImage from '../components/FadeImage';
-import FadeInTransition from '../components/FadeInTransition';
-import FullscreenLoader from '../components/FullscreenLoader';
+import FadeImage from '../shared-components/FadeImage';
+import FadeInTransition from '../shared-components/FadeInTransition';
+import FullscreenLoader from '../shared-components/FullscreenLoader';
 import { actions as appActions } from '../app';
 import { selectors as authSelectors } from '../auth';
 import { getAlbumArtUrlForTrack } from '../utils';

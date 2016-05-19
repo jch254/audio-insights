@@ -109,7 +109,7 @@ export function* handleSpotifyApiError(error, failureAction, redirectPath) {
   const response = error.response;
 
   if (response === undefined) {
-    yield put(failureAction(error));
+    yield put(failureAction(error.message));
   } else {
     if (response.status === 401) {
       // Unauthorised - redirect to Spotify login

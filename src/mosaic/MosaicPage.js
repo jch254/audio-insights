@@ -9,9 +9,9 @@ import Mosaic from './Mosaic';
 import { mosaicRequest } from './actions';
 import { getError, getIsFetching, getTracks } from './selectors';
 
-import FadeInTransition from '../components/FadeInTransition';
-import FullscreenLoader from '../components/FullscreenLoader';
-import WindowDimensionsWrapper from '../components/WindowDimensionsWrapper';
+import FadeInTransition from '../shared-components/FadeInTransition';
+import FullscreenLoader from '../shared-components/FullscreenLoader';
+import WindowDimensionsWrapper from '../shared-components/WindowDimensionsWrapper';
 import { selectors as authSelectors } from '../auth';
 import { actions as appActions } from '../app';
 import { getAlbumArtUrlForTrack } from '../utils';

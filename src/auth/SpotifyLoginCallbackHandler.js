@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { loginSuccess } from './actions';
 
-import FullscreenLoader from '../components/FullscreenLoader';
+import FullscreenLoader from '../shared-components/FullscreenLoader';
 
 class SpotifyLoginCallbackHandler extends Component {
   componentWillMount() {
