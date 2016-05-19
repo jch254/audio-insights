@@ -21,6 +21,8 @@ import PlayPause from './PlayPause';
 import { actions as appActions, selectors as appSelectors } from '../app';
 import { selectors as mosaicSelectors } from '../mosaic';
 import { selectors as recommendedSelectors } from '../recommended';
+import { getAlbumArtUrlForTrack } from '../utils';
+
 
 export default class TrackInfoModal extends Component {
   closeModal = () => {
@@ -81,10 +83,10 @@ export default class TrackInfoModal extends Component {
                 align="center"
               >
                 <FadeImage
-                  src={ selectedTrack.album.images[1].url }
+                  src={ getAlbumArtUrlForTrack(selectedTrack) }
                   style={{
-                    width: selectedTrack.album.images[1].width,
-                    height: selectedTrack.album.images[1].height,
+                    width: '300px',
+                    height: '300px',
                     marginRight: '16px',
                     marginTop: '16px',
                   }}

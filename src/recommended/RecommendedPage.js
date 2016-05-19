@@ -29,6 +29,7 @@ import FadeInTransition from '../components/FadeInTransition';
 import FullscreenLoader from '../components/FullscreenLoader';
 import { actions as appActions } from '../app';
 import { selectors as authSelectors } from '../auth';
+import { getAlbumArtUrlForTrack } from '../utils';
 
 class RecommendedPage extends Component {
   componentDidMount() {
@@ -150,7 +151,7 @@ class RecommendedPage extends Component {
                     onClick={() => this.handleTrackClick(t.id)}
                   >
                     <FadeImage
-                      src={t.album.images[1].url}
+                      src={getAlbumArtUrlForTrack(t)}
                       style={{
                         minWidth: '150px',
                         maxWidth: '150px',

@@ -14,6 +14,7 @@ import FullscreenLoader from '../components/FullscreenLoader';
 import WindowDimensionsWrapper from '../components/WindowDimensionsWrapper';
 import { selectors as authSelectors } from '../auth';
 import { actions as appActions } from '../app';
+import { getAlbumArtUrlForTrack } from '../utils';
 
 class MosaicPage extends Component {
   componentDidMount() {
@@ -28,7 +29,7 @@ class MosaicPage extends Component {
   render() {
     const { isFetching, tracks, error } = this.props;
     const albumArtTiles = tracks.map(t => ({
-      url: `${t.album.images[1].url}?${new Date().getTime()}`,
+      url: `${getAlbumArtUrlForTrack(t)}?${new Date().getTime()}`,
       onClickHandler: () => this.handleTileClick(t.id),
     }));
 

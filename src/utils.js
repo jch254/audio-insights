@@ -11,6 +11,14 @@ export function parseJSON(response) {
   return response.json();
 }
 
+export function getAlbumArtUrlForTrack(track) {
+  if (track.album.images[0]) {
+    return track.album.images[0].url;
+  }
+
+  return 'http://img.jch254.com/Blank.jpg'
+}
+
 export const ID_TOKEN = 'id_token';
 export const ID_TOKEN_EXPIRY = 'id_token_expiry';
 
