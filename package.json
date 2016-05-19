@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "babel-node devServer.js",
-    "build": "rimraf dist && NODE_ENV=production webpack --config ./webpack.prod.config.js --progress --profile --colors",
+    "build": "rimraf dist && NODE_ENV=production webpack --config ./webpack.prod.config.js --progress --profile --colors && copyfiles index.html favicon.ico dist",
     "build-win": "rimraf dist&&set NODE_ENV=production&&webpack --config ./webpack.prod.config.js --progress --profile --colors",
     "lint": "eslint src || exit 0",
     "clean": "rimraf dist"
@@ -50,6 +50,7 @@
     "babel-preset-stage-1": "^6.5.0",
     "babel-register": "^6.7.2",
     "babel-runtime": "^6.6.1",
+    "copyfiles": "^0.2.1",
     "eslint": "^2.7.0",
     "eslint-config-airbnb": "6.2.0",
     "eslint-plugin-react": "^4.3.0",
