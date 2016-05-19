@@ -1,5 +1,7 @@
 # [Audio Insights (Live Demo)](http://ai.603.nu)
 
+[![Build Status](https://semaphoreci.com/api/v1/jch254/audio-insights-2/branches/master/shields_badge.svg)](https://semaphoreci.com/jch254/audio-insights-2)
+
 ## Overview
 
 I built this web app teach myself about front-end development with
