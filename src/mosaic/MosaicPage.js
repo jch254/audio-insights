@@ -27,10 +27,18 @@ class MosaicPage extends Component {
 
   render() {
     const { isFetching, tracks, error } = this.props;
-    const albumArtTiles = tracks.map(t => ({
-      url: `${t.album.images[1].url}?${new Date().getTime()}`,
+    const albumArtTiles = tracks.map(t => {
+      let url = "";
+      try{
+        url = `${t.album.images[0].url}?${new Date().getTime()}`;
+      } catch (e) {
+        console.log('Image did not exist, using blank href');
+      }
+      return {
+      url: url,
       onClickHandler: () => this.handleTileClick(t.id),
-    }));
+      }
+    });
 
     return (
       isFetching ?

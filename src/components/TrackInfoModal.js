@@ -81,10 +81,10 @@ export default class TrackInfoModal extends Component {
                 align="center"
               >
                 <FadeImage
-                  src={ selectedTrack.album.images[1].url }
+                  src={ selectedTrack.album.images[0].url }
                   style={{
-                    width: selectedTrack.album.images[1].width,
-                    height: selectedTrack.album.images[1].height,
+                    width: selectedTrack.album.images[0].width,
+                    height: selectedTrack.album.images[0].height,
                     marginRight: '16px',
                     marginTop: '16px',
                   }}
