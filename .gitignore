@@ -6,3 +6,4 @@ dist/js/
 typings.json
 npm-debug.log
 config.js
+semaphore
