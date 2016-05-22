@@ -22,7 +22,7 @@ class SpotifyLoginCallbackHandler extends Component {
 
       // TODO: Handle errors
       // expires_in is in seconds so convert to milliseconds to calculate token expiry
-      const idTokenExpiryMilliseconds = Date.now() + (60 * 1000);
+      const idTokenExpiryMilliseconds = Date.now() + (hashParams.expires_in * 1000);
 
       dispatch(loginSuccess(hashParams.access_token, idTokenExpiryMilliseconds));
       router.push(hashParams.state);
