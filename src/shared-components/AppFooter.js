@@ -22,7 +22,7 @@ const AppFooter = () => (
         <Link to="/glossary" children="Glossary" />
       </NavItem>
       <NavItem color="midgray" children="//" style={{ cursor: 'default' }} />
-      <NavItem color="midgray" href="http://603.nu" children="© 603.nu 2016" />
+      <NavItem color="midgray" href="https://603.nu" children="© 603.nu 2016" />
     </Toolbar>
   </Box>
 );

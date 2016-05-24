@@ -1,4 +1,4 @@
-# [Audio Insights (Live Demo)](http://ai.603.nu)
+# [Audio Insights (Live Demo)](https://ai.603.nu)
 
 [![Build Status](https://semaphoreci.com/api/v1/jch254/audio-insights-2/branches/master/shields_badge.svg)](https://semaphoreci.com/jch254/audio-insights-2)
 
@@ -25,13 +25,13 @@ on using React and Redux best practices and making the app as responsive as poss
 I'd be thankful for any feedback or suggestions. I look forward to applying the skills I've
 acquired building this app on future projects.
 
-![Mosaic](http://img.jch254.com/Mosaic.png)
+![Mosaic](https://img.jch254.com/Mosaic.png)
 
-![Modal](http://img.jch254.com/Modal.png)
+![Modal](https://img.jch254.com/Modal.png)
 
-![Recommended](http://img.jch254.com/Recommended.png)
+![Recommended](https://img.jch254.com/Recommended.png)
 
-![Artists](http://img.jch254.com/Artists.png)
+![Artists](https://img.jch254.com/Artists.png)
 
 ## Technologies Used
 
