@@ -1,4 +1,5 @@
 import 'isomorphic-fetch';
+import Immutable, { Map } from 'immutable';
 import { put } from 'redux-saga/effects';
 
 import { actions as authActions } from './auth';
@@ -33,7 +34,7 @@ export function fetchUserProfile(idToken) {
     `${baseUrl}/v1/me`, getFetchInit(idToken, 'GET'))
     .then(checkStatus)
     .then(parseJSON)
-    .then(json => ({ userProfile: json }))
+    .then(json => ({ userProfile: Immutable.fromJS(json) }))
     .catch(error => Promise.reject(error));
 }
 
@@ -42,7 +43,8 @@ export function fetchTopTracks(idToken, term) {
     `${baseUrl}/v1/me/top/tracks?limit=50&time_range=${term}`, getFetchInit(idToken, 'GET'))
     .then(checkStatus)
     .then(parseJSON)
-    .then(json => ({ tracks: json.items.sort(() => 0.5 - Math.random()) }))
+    .then(json =>
+      ({ tracks: new Map(json.items.map(track => [track.id, Immutable.fromJS(track)])) }))
     .catch(error => Promise.reject(error));
 }
 
@@ -50,24 +52,31 @@ export function fetchAudioFeaturesForTracks(idToken, trackIds) {
   return fetch(`${baseUrl}/v1/audio-features/?ids=${trackIds}`, getFetchInit(idToken, 'GET'))
     .then(checkStatus)
     .then(parseJSON)
-    .then(json => ({ audioFeaturesForTracks: json.audio_features }))
+    .then(json => ({
+      audioFeaturesForTracks: new Map(
+        json.audio_features.map(audioFeature => [audioFeature.id, Immutable.fromJS(audioFeature)])
+      ),
+    }))
     .catch(error => Promise.reject(error));
 }
-
 
 export function fetchRecommendedTracks(idToken, targetAttributes, seedArtistIds) {
   return fetch(`${baseUrl}/v1/recommendations?
 limit=100&
 seed_artists=${seedArtistIds}&
-target_acousticness=${targetAttributes.acousticness}&
-target_danceability=${targetAttributes.danceability}&
-target_energy=${targetAttributes.energy}&
-target_instrumentalness=${targetAttributes.instrumentalness}&
-target_speechiness=${targetAttributes.speechiness}&
-target_valence=${targetAttributes.valence}`, getFetchInit(idToken, 'GET'))
+target_acousticness=${targetAttributes.get('acousticness')}&
+target_danceability=${targetAttributes.get('danceability')}&
+target_energy=${targetAttributes.get('energy')}&
+target_instrumentalness=${targetAttributes.get('instrumentalness')}&
+target_speechiness=${targetAttributes.get('speechiness')}&
+target_valence=${targetAttributes.get('valence')}`, getFetchInit(idToken, 'GET'))
     .then(checkStatus)
     .then(parseJSON)
-    .then(json => ({ recommendedTracks: json.tracks.sort(() => 0.5 - Math.random()) }))
+    .then(json => ({
+      recommendedTracks: new Map(
+        json.tracks.map(track => [track.id, Immutable.fromJS(track)])
+      ),
+    }))
     .catch(error => Promise.reject(error));
 }
 
@@ -76,7 +85,8 @@ export function fetchArtists(idToken, term) {
     `${baseUrl}/v1/me/top/artists?limit=50&time_range=${term}`, getFetchInit(idToken, 'GET'))
     .then(checkStatus)
     .then(parseJSON)
-    .then(json => ({ artists: json.items.sort(() => 0.5 - Math.random()) }))
+    .then(json =>
+      ({ artists: new Map(json.items.map(artist => [artist.id, Immutable.fromJS(artist)])) }))
     .catch(error => Promise.reject(error));
 }
 
@@ -87,20 +97,18 @@ export function createPrivatePlaylist(idToken, userId, playlistName) {
     `${baseUrl}/v1/users/${userId}/playlists`, getFetchInit(idToken, 'POST', body))
     .then(checkStatus)
     .then(parseJSON)
-    .then(json => ({ playlist: json }))
+    .then(json => ({ playlist: Immutable.fromJS(json) }))
     .catch(error => Promise.reject(error));
 }
 
 export function addTracksToPlaylist(idToken, userId, playlistId, trackUris) {
-  const body = { uris: trackUris };
-
   return fetch(
-      `${baseUrl}/v1/users/${userId}/playlists/${playlistId}/tracks`,
-      getFetchInit(idToken, 'POST', body)
+      `${baseUrl}/v1/users/${userId}/playlists/${playlistId}/tracks?uris=${trackUris}`,
+      getFetchInit(idToken, 'POST')
     )
     .then(checkStatus)
     .then(parseJSON)
-    .then(json => ({ playlist: json }))
+    .then(json => ({ playlist: Immutable.fromJS(json) }))
     .catch(error => Promise.reject(error));
 }
 

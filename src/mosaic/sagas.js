@@ -21,22 +21,15 @@ export function* fetchMosaicSaga(idToken) {
       const currentTerm = yield select(appSelectors.getCurrentTerm);
       const { tracks } = yield call(fetchTopTracks, idToken, currentTerm);
 
-      if (tracks.length === 0) {
+      if (tracks.isEmpty()) {
         throw new Error('Unfortunately you do not have enough Spotify data to display the mosaic');
       }
 
-      const trackIds = tracks.map(t => (t.id)).join(',');
-      const { audioFeaturesForTracks } =
-        yield call(fetchAudioFeaturesForTracks, idToken, trackIds);
-      const mergedTracks = [];
+      const trackIds = tracks.keySeq().join();
+      const { audioFeaturesForTracks } = yield call(fetchAudioFeaturesForTracks, idToken, trackIds);
+      const tracksWithAudioFeatures = tracks.mergeDeep(audioFeaturesForTracks);
 
-      for (const [index, track] of tracks.entries()) {
-        const audioFeatures = audioFeaturesForTracks.find(a => a.id === track.id);
-
-        mergedTracks[index] = { ...track, ...audioFeatures };
-      }
-
-      yield put(mosaicSuccess(mergedTracks));
+      yield put(mosaicSuccess(tracksWithAudioFeatures.sort(() => Math.random())));
     }
   } catch (error) {
     yield call(handleSpotifyApiError, error, mosaicFailure, 'mosaic');

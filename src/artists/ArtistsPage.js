@@ -6,6 +6,8 @@ import {
   Container,
   Message,
 } from 'rebass';
+import Immutable from 'immutable';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 import { artistsRequest } from './actions';
 import { getArtists, getError, getIsFetching } from './selectors';
@@ -16,11 +18,23 @@ import FullscreenLoader from '../shared-components/FullscreenLoader';
 import { selectors as authSelectors } from '../auth';
 
 class ArtistsPage extends Component {
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    idToken: PropTypes.string.isRequired,
+    artists: ImmutablePropTypes.map.isRequired,
+    isFetching: PropTypes.bool.isRequired,
+    error: PropTypes.object,
+  };
+
   componentDidMount() {
     const { dispatch, idToken } = this.props;
+
     dispatch(artistsRequest(idToken));
   }
 
+  shouldComponentUpdate(nextProps) {
+    return !Immutable.is(nextProps.artists, this.props.artists);
+  }
 
   render() {
     const { isFetching, artists, error } = this.props;
@@ -39,20 +53,22 @@ class ArtistsPage extends Component {
                 </Message>
               }
               {
-                artists.map((a, index) =>
-                  <FadeImage
-                    key={index}
-                    src={
-                      `${a.images[1] ? a.images[1].url : a.images[0].url}?${new Date().getTime()}`
-                    }
-                    style={{
-                      maxWidth: '100%',
-                      height: 'auto',
-                      display: 'block',
-                      marginBottom: '16px',
-                    }}
-                  />
-                )
+                artists
+                  .entrySeq()
+                  .map(([id, artist]) =>
+                    <FadeImage
+                      key={id}
+                      src={
+                        artist.getIn(['images', '1', 'url']) || artist.getIn(['images', '0', 'url'])
+                      }
+                      style={{
+                        maxWidth: '100%',
+                        height: 'auto',
+                        display: 'block',
+                        marginBottom: '16px',
+                      }}
+                    />
+                  )
               }
             </Container>
           </Box>
@@ -60,14 +76,6 @@ class ArtistsPage extends Component {
     );
   }
 }
-
-ArtistsPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  idToken: PropTypes.string.isRequired,
-  artists: PropTypes.array.isRequired,
-  isFetching: PropTypes.bool.isRequired,
-  error: PropTypes.object,
-};
 
 function mapStateToProps(state) {
   return {

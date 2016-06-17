@@ -1,4 +1,5 @@
 import 'isomorphic-fetch';
+import { Map } from 'immutable';
 import { call, put, select, take } from 'redux-saga/effects';
 
 import {
@@ -37,38 +38,31 @@ export function* fetchRecommendedTracksSaga(idToken) {
 
       const tracks = yield select(mosaicSelectors.getTracks);
 
-      if (tracks.length === 0) {
+      if (tracks.isEmpty()) {
         throw new Error(
           'Unfortunately you do not have enough Spotify data to generate a recommended playlist');
       }
 
       const seedArtistIds = getCommaSeparatedSeedArtistIds(tracks);
-      const targetAttributes = {
-        acousticness: getAverageAudioFeature(tracks, t => t.acousticness),
-        danceability: getAverageAudioFeature(tracks, t => t.danceability),
-        energy: getAverageAudioFeature(tracks, t => t.energy),
-        instrumentalness: getAverageAudioFeature(tracks, t => t.instrumentalness),
-        speechiness: getAverageAudioFeature(tracks, t => t.speechiness),
-        valence: getAverageAudioFeature(tracks, t => t.valence),
-      };
+      const targetAttributes = new Map({
+        acousticness: getAverageAudioFeature(tracks, t => t.get('acousticness')),
+        danceability: getAverageAudioFeature(tracks, t => t.get('danceability')),
+        energy: getAverageAudioFeature(tracks, t => t.get('energy')),
+        instrumentalness: getAverageAudioFeature(tracks, t => t.get('instrumentalness')),
+        speechiness: getAverageAudioFeature(tracks, t => t.get('speechiness')),
+        valence: getAverageAudioFeature(tracks, t => t.get('valence')),
+      });
 
       const { recommendedTracks } =
         yield call(fetchRecommendedTracks, idToken, targetAttributes, seedArtistIds);
 
-      const uniqueTrackIds = [...new Set(recommendedTracks.map(t => (t.id)))];
-      const recommendedTrackIds = uniqueTrackIds.join(',');
+      const recommendedTrackIds = recommendedTracks.keySeq().toSet().join();
       const { audioFeaturesForTracks } =
         yield call(fetchAudioFeaturesForTracks, idToken, recommendedTrackIds);
+      const tracksWithAudioFeatures = recommendedTracks.mergeDeep(audioFeaturesForTracks);
 
-      const tracksWithAudioFeatures = [];
-      for (const [index, audioFeaturesForTrack] of audioFeaturesForTracks.entries()) {
-        const recommendedTrack =
-          recommendedTracks.find(t => t.id === audioFeaturesForTrack.id);
-
-        tracksWithAudioFeatures[index] = { ...recommendedTrack, ...audioFeaturesForTrack };
-      }
-
-      yield put(recommendedTracksSuccess(tracksWithAudioFeatures, targetAttributes));
+      yield put(recommendedTracksSuccess(
+        tracksWithAudioFeatures.sort(() => Math.random()), targetAttributes));
     }
   } catch (error) {
     yield call(handleSpotifyApiError, error, recommendedTracksFailure, 'recommended');
@@ -86,13 +80,15 @@ export function* watchRecommendedTracksRequest() {
 export function* createRecommendedPlaylistSaga(idToken) {
   try {
     const recommendedTracks = yield select(getRecommendedTracks);
-    const recommendedTrackUris = recommendedTracks.map(t => t.uri);
+    const recommendedTrackUris = recommendedTracks.map(track => track.get('uri')).join();
     const { userProfile } = yield call(fetchUserProfile, idToken);
     const currentTerm = yield select(appSelectors.getCurrentTerm);
     const playlistName = `AI Recommended (${currentTerm})`;
-    const { playlist } = yield call(createPrivatePlaylist, idToken, userProfile.id, playlistName);
-
-    yield call(addTracksToPlaylist, idToken, userProfile.id, playlist.id, recommendedTrackUris)
+    const { playlist } =
+      yield call(createPrivatePlaylist, idToken, userProfile.get('id'), playlistName);
+    yield call(
+      addTracksToPlaylist, idToken, userProfile.get('id'), playlist.get('id'), recommendedTrackUris
+    );
     yield put(createRecommendedPlaylistSuccess());
   } catch (error) {
     yield call(handleSpotifyApiError, error, createRecommendedPlaylistFailure, 'recommended');
@@ -108,27 +104,16 @@ export function* watchCreateRecommendedPlaylistRequest() {
 }
 
 function getAverageAudioFeature(tracks, featureSelector) {
-  return tracks.length !== 0 ?
-    tracks.map(featureSelector).reduce((a, b) => a + b, 0) / tracks.length :
-    0;
+  return tracks.map(featureSelector).reduce((a, b) => a + b, 0) / tracks.count();
 }
 
 function getCommaSeparatedSeedArtistIds(tracks) {
-  // TODO: Improve function
-
-  if (tracks.length === 0) {
-    return '';
-  }
-
-  const allArtistIds = tracks
-    .map(t => t.artists)
-    .reduce((a, b) => a.concat(b)) // Flatten artists
-    .map(a => a.id); // Grab artistIds
-
-  return [...new Set(allArtistIds)]
-    .map(a => [a, allArtistIds.filter(y => y === a).length]) // Calculate frequency of each artistId
-    .sort((a, b) => b[1] - a[1]) // Sort by artistId frequency
-    .map(a => a[0])
-    .slice(0, 5) // Grab top five most frequent artistIds
-    .join(',');
+  return tracks
+    .valueSeq()
+    .flatMap(t => t.get('artists'))
+    .groupBy(a => a.get('id'))
+    .sort((a, b) => b.size - a.size)
+    .take(5)
+    .keySeq()
+    .join();
 }

@@ -4,7 +4,7 @@ import { take } from 'redux-saga/effects';
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT } from './actions';
 
 import { redirectToSpotifyLogin } from '../spotifyApiService';
-import { setStoredAuthData, removeStoredAuthData } from '../utils';
+import { setStoredAuthState, removeStoredAuthState } from '../utils';
 
 export function* watchLoginRequest() {
   while (true) {
@@ -18,7 +18,7 @@ export function* watchLoginSuccess() {
   while (true) {
     const { idToken, idTokenExpiry } = yield take(LOGIN_SUCCESS)
 
-    setStoredAuthData(idToken, idTokenExpiry);
+    setStoredAuthState(idToken, idTokenExpiry);
   }
 }
 
@@ -26,7 +26,7 @@ export function* watchLoginFailure() {
   while (true) {
     yield take(LOGIN_FAILURE)
 
-    removeStoredAuthData();
+    removeStoredAuthState();
   }
 }
 
@@ -34,6 +34,6 @@ export function* watchLogout() {
   while (true) {
     yield take(LOGOUT)
 
-    removeStoredAuthData();
+    removeStoredAuthState();
   }
 }

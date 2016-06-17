@@ -1,9 +1,9 @@
-export const getError = (state) => state.recommended.error;
-export const getIsCreatingPlaylist = (state) => state.recommended.isCreatingPlaylist;
-export const getIsFetching = (state) => state.recommended.isFetching;
-export const getIsHydrated = (state) => state.recommended.isHydrated;
-export const getPlaylistCreated = (state) => state.recommended.playlistCreated;
+export const getError = (state) => state.recommended.get('error');
+export const getIsCreatingPlaylist = (state) => state.recommended.get('isCreatingPlaylist');
+export const getIsFetching = (state) => state.recommended.get('isFetching');
+export const getIsHydrated = (state) => state.recommended.get('isHydrated');
+export const getPlaylistCreated = (state) => state.recommended.get('playlistCreated');
+export const getRecommendedTracks = (state) => state.recommended.get('recommendedTracks');
 export const getRecommendedTrack = (state, recommendedTrackId) =>
-  state.recommended.recommendedTracks.find(s => s.id === recommendedTrackId);
-export const getRecommendedTracks = (state) => state.recommended.recommendedTracks;
-export const getTargetAttributes = (state) => state.recommended.targetAttributes;
+  state.recommended.getIn(['recommendedTracks', recommendedTrackId]);
+export const getTargetAttributes = (state) => state.recommended.get('targetAttributes');

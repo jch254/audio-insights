@@ -14,11 +14,13 @@
   },
   "author": "Jordan Hornblow <jordan@jch254.com>",
   "dependencies": {
+    "immutable": "^3.8.1",
     "isomorphic-fetch": "^2.2.1",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
     "react-ga": "^1.4.1",
     "react-geomicons": "^2.0.5",
+    "react-immutable-proptypes": "^1.7.1",
     "react-loading": "0.0.9",
     "react-motion": "^0.4.3",
     "react-motion-ui-pack": "^0.7.3",
