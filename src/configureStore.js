@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import createLogger from 'redux-logger';
-import { routerReducer } from 'react-router-redux';
+import { routerMiddleware, routerReducer } from 'react-router-redux';
 import recycleState from 'redux-recycle';
 
 import { reducer as appReducer, actions as appActions } from './app';
@@ -28,15 +28,15 @@ const reducer = combineReducers(
   }
 );
 
-const sagaMiddleware = createSagaMiddleware();
-const middlewares = [sagaMiddleware];
+export default function configureStore(browserHistory, initialState) {
+  const sagaMiddleware = createSagaMiddleware();
+  const middlewares = [sagaMiddleware, routerMiddleware(browserHistory)];
 
-if (process.env.NODE_ENV !== 'production') {
-  const logger = createLogger();
-  middlewares.push(logger);
-}
+  if (process.env.NODE_ENV !== 'production') {
+    const logger = createLogger();
+    middlewares.push(logger);
+  }
 
-export default function configureStore(initialState) {
   const store = createStore(
     reducer,
     initialState,

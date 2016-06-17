@@ -22,11 +22,11 @@ export function* fetchArtistsSaga(idToken) {
       const currentTerm = yield select(appSelectors.getCurrentTerm);
       const { artists } = yield call(fetchArtists, idToken, currentTerm);
 
-      if (artists.length === 0) {
+      if (artists.isEmpty()) {
         throw new Error('Unfortunately you do not have enough Spotify data to display top artists');
       }
 
-      yield put(artistsSuccess(artists));
+      yield put(artistsSuccess(artists.sort(() => Math.random())));
     }
   } catch (error) {
     yield call(handleSpotifyApiError, error, artistsFailure, 'artists');

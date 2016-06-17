@@ -4,8 +4,9 @@ import { Box } from 'reflexbox';
 import {
   Message,
 } from 'rebass'
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
-import Mosaic from './Mosaic';
+import AlbumArtMosaic from './AlbumArtMosaic';
 import { mosaicRequest } from './actions';
 import { getError, getIsFetching, getTracks } from './selectors';
 
@@ -14,9 +15,16 @@ import FullscreenLoader from '../shared-components/FullscreenLoader';
 import WindowDimensionsWrapper from '../shared-components/WindowDimensionsWrapper';
 import { selectors as authSelectors } from '../auth';
 import { actions as appActions } from '../app';
-import { getAlbumArtUrlForTrack } from '../utils';
 
 class MosaicPage extends Component {
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    idToken: PropTypes.string.isRequired,
+    tracks: ImmutablePropTypes.map.isRequired,
+    isFetching: PropTypes.bool.isRequired,
+    error: PropTypes.object,
+  };
+
   componentDidMount() {
     const { dispatch, idToken } = this.props;
     dispatch(mosaicRequest(idToken));
@@ -28,10 +36,6 @@ class MosaicPage extends Component {
 
   render() {
     const { isFetching, tracks, error } = this.props;
-    const albumArtTiles = tracks.map(t => ({
-      url: `${getAlbumArtUrlForTrack(t)}?${new Date().getTime()}`,
-      onClickHandler: () => this.handleTileClick(t.id),
-    }));
 
     return (
       isFetching ?
@@ -45,21 +49,13 @@ class MosaicPage extends Component {
               </Message>
             }
             <WindowDimensionsWrapper>
-              <Mosaic tilesArray={albumArtTiles} />
+              <AlbumArtMosaic tracks={tracks} tileClickHandler={this.handleTileClick} />
             </WindowDimensionsWrapper>
           </Box>
         </FadeInTransition>
     );
   }
 }
-
-MosaicPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  idToken: PropTypes.string.isRequired,
-  tracks: PropTypes.array.isRequired,
-  isFetching: PropTypes.bool.isRequired,
-  error: PropTypes.object,
-};
 
 function mapStateToProps(state) {
   return {

@@ -1,3 +1,5 @@
+import { Map } from 'immutable';
+
 import {
   ARTISTS_REQUEST,
   ARTISTS_HYDRATED,
@@ -5,39 +7,31 @@ import {
   ARTISTS_FAILURE,
 } from './actions';
 
-export const initialState = {
+export const initialState = new Map({
   isFetching: false,
   isHydrated: false,
-  artists: [],
+  artists: new Map(),
   error: null,
-};
+});
 
 export default function artists(state = initialState, action) {
   switch (action.type) {
     case ARTISTS_REQUEST:
-      return {
-        ...state,
-        isFetching: true,
-      };
+      return state.set('isFetching', true);
     case ARTISTS_HYDRATED:
-      return {
-        ...state,
-        isFetching: false,
-      };
+      return state.set('isFetching', false);
     case ARTISTS_SUCCESS:
-      return {
-        ...state,
+      return state.merge({
+        artists: action.artists,
         isFetching: false,
         isHydrated: true,
-        artists: action.artists,
         error: null,
-      };
+      });
     case ARTISTS_FAILURE:
-      return {
-        ...state,
+      return state.merge({
         isFetching: false,
         error: action.error,
-      };
+      });
     default:
       return state;
   }

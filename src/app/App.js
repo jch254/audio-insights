@@ -15,6 +15,15 @@ import { actions as mosaicActions } from '../mosaic';
 import { actions as recommendedActions } from '../recommended';
 
 export default class App extends Component {
+  static propTypes = {
+    children: PropTypes.node.isRequired,
+    dispatch: PropTypes.func.isRequired,
+    location: PropTypes.object.isRequired,
+    currentTerm: PropTypes.string.isRequired,
+    dropdownOpen: PropTypes.bool.isRequired,
+    idToken: PropTypes.string,
+  };
+
   toggleDropdown = () => {
     this.props.dispatch(toggleDropdown());
   }
@@ -57,15 +66,6 @@ export default class App extends Component {
     );
   }
 }
-
-App.propTypes = {
-  children: PropTypes.node.isRequired,
-  dispatch: PropTypes.func.isRequired,
-  location: PropTypes.object.isRequired,
-  currentTerm: PropTypes.string.isRequired,
-  dropdownOpen: PropTypes.bool.isRequired,
-  idToken: PropTypes.string,
-};
 
 function mapStateToProps(state) {
   return {

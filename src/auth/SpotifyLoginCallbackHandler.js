@@ -6,7 +6,18 @@ import { loginSuccess } from './actions';
 import FullscreenLoader from '../shared-components/FullscreenLoader';
 
 class SpotifyLoginCallbackHandler extends Component {
+  static propTypes = {
+    location: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired,
+  };
+
+  static contextTypes = {
+    router: PropTypes.object.isRequired,
+  };
+
   componentWillMount() {
+    // TODO: Handle errors and utilise Immutable here
+
     const { router } = this.context;
     const { dispatch, location } = this.props;
 
@@ -20,7 +31,6 @@ class SpotifyLoginCallbackHandler extends Component {
         hashParams[keyValPair[0]] = keyValPair[1];
       }
 
-      // TODO: Handle errors
       // expires_in is in seconds so convert to milliseconds to calculate token expiry
       const idTokenExpiryMilliseconds = Date.now() + (hashParams.expires_in * 1000);
 
@@ -35,14 +45,5 @@ class SpotifyLoginCallbackHandler extends Component {
     )
   }
 }
-
-SpotifyLoginCallbackHandler.propTypes = {
-  location: PropTypes.object.isRequired,
-  dispatch: PropTypes.func.isRequired,
-};
-
-SpotifyLoginCallbackHandler.contextTypes = {
-  router: PropTypes.object.isRequired,
-};
 
 export default connect(state => state)(SpotifyLoginCallbackHandler);

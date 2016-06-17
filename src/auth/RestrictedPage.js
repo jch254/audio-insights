@@ -6,6 +6,13 @@ import { loginRequest } from './actions';
 import { getIdToken } from './selectors';
 
 class RestrictedPage extends Component {
+  static propTypes = {
+    children: PropTypes.node.isRequired,
+    location: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired,
+    idToken: PropTypes.string,
+  };
+
   componentWillMount() {
     const { dispatch, idToken, location } = this.props;
     const path = location.pathname.substring(1);
@@ -25,13 +32,6 @@ class RestrictedPage extends Component {
     return <FullscreenLoader delay={0} />;
   }
 }
-
-RestrictedPage.propTypes = {
-  children: PropTypes.node.isRequired,
-  location: PropTypes.object.isRequired,
-  dispatch: PropTypes.func.isRequired,
-  idToken: PropTypes.string,
-};
 
 function mapStateToProps(state) {
   return {
