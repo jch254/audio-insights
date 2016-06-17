@@ -1,3 +1,5 @@
+import { Map } from 'immutable';
+
 import {
   MOSAIC_REQUEST,
   MOSAIC_HYDRATED,
@@ -5,39 +7,31 @@ import {
   MOSAIC_FAILURE,
 } from './actions';
 
-export const initialState = {
+export const initialState = new Map({
   isFetching: false,
   isHydrated: false,
-  tracks: [],
+  tracks: new Map(),
   error: null,
-};
+});
 
 export default function mosaic(state = initialState, action) {
   switch (action.type) {
     case MOSAIC_REQUEST:
-      return {
-        ...state,
-        isFetching: true,
-      };
+      return state.set('isFetching', true);
     case MOSAIC_HYDRATED:
-      return {
-        ...state,
-        isFetching: false,
-      };
+      return state.set('isFetching', false);
     case MOSAIC_SUCCESS:
-      return {
-        ...state,
+      return state.merge({
         tracks: action.tracks,
         isFetching: false,
         isHydrated: true,
         error: null,
-      };
+      });
     case MOSAIC_FAILURE:
-      return {
-        ...state,
+      return state.merge({
         isFetching: false,
         error: action.error,
-      };
+      });
     default:
       return state;
   }

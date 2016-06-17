@@ -11,6 +11,11 @@ import FadeInTransition from './FadeInTransition';
 import { actions as authActions, selectors as authSelectors } from '../auth';
 
 export default class HomePage extends Component {
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    idToken: PropTypes.string,
+  };
+
   handleLogin = () => {
     this.props.dispatch(authActions.loginRequest('mosaic'));
   }
@@ -43,11 +48,6 @@ export default class HomePage extends Component {
     );
   }
 }
-
-HomePage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  idToken: PropTypes.string,
-};
 
 function mapStateToProps(state) {
   return {

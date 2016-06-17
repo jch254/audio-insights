@@ -10,7 +10,7 @@ import ga from 'react-ga';
 import configureStore from './configureStore';
 import routes from './routes';
 
-const store = configureStore();
+const store = configureStore(browserHistory);
 const history = syncHistoryWithStore(browserHistory, store);
 
 if (process.env.NODE_ENV === 'production') {

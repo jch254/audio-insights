@@ -23,8 +23,18 @@ import { selectors as mosaicSelectors } from '../mosaic';
 import { selectors as recommendedSelectors } from '../recommended';
 import { getAlbumArtUrlForTrack } from '../utils';
 
-
 export default class TrackInfoModal extends Component {
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    modalOpen: PropTypes.bool.isRequired,
+    windowWidth: PropTypes.number.isRequired,
+    selectedTrack: PropTypes.object,
+  };
+
+  static defaultProps = {
+    windowWidth: 0,
+  };
+
   closeModal = () => {
     this.props.dispatch(appActions.closeModal());
   }
@@ -73,7 +83,9 @@ export default class TrackInfoModal extends Component {
           <Overlay key="modal" open={modalOpen} onDismiss={this.closeModal} >
             <Panel>
               <PanelHeader>
-                <Text children={`${selectedTrack.artists[0].name} - ${selectedTrack.name}`} />
+                <Text>
+                  {`${selectedTrack.getIn(['artists', 0, 'name'])} - ${selectedTrack.get('name')}`}
+                </Text>
                 <Space auto />
                 <Close onClick={this.closeModal} />
               </PanelHeader>
@@ -92,34 +104,36 @@ export default class TrackInfoModal extends Component {
                   }}
                 />
                 <Flex mt={2} mr={2} wrap column style={{ width: '300px' }}>
-                  <Heading color="black" level={3} children={selectedTrack.name} />
+                  <Heading color="black" level={3} children={selectedTrack.get('name')} />
                   <Text
                     color="black"
-                    children={selectedTrack.artists.map(a => a.name).join(', ')}
+                    children={selectedTrack.get('artists').map(a => a.get('name')).join(', ')}
                   />
-                  <Text color="black" children={selectedTrack.album.name} />
+                <Text color="black" children={selectedTrack.getIn(['album', 'name'])} />
                   <Divider ml={0} width={150} />
                   <Flex column={windowWidth > 480} style={{ marginTop: '-16px' }}>
                     <Flex column mt={2}>
-                      <Text color="black" children={`${Math.round(selectedTrack.tempo)} bpm`} />
+                      <Text color="black">
+                        {`${Math.round(selectedTrack.get('tempo'))} bpm`}
+                      </Text>
                       <Text color="black">
                         {
-                          `${this.mapPitchClassToKey(selectedTrack.key)}
-                            ${this.mapMode(selectedTrack.mode)}`
+                          `${this.mapPitchClassToKey(selectedTrack.get('key'))}
+                            ${this.mapMode(selectedTrack.get('mode'))}`
                         }
                       </Text>
                     </Flex>
                     <Space auto />
                     <Flex mt={2}>
                       <PlayPause
-                        previewUrl={selectedTrack.preview_url}
+                        previewUrl={selectedTrack.get('preview_url')}
                       />
                       <ButtonCircle
                         ml={1}
                         size={48}
                         backgroundColor="green"
                         title="Open in Spotify"
-                        href={selectedTrack.external_urls.spotify}
+                        href={selectedTrack.getIn(['external_urls', 'spotify'])}
                         target="_blank"
                       >
                         <Icon
@@ -141,22 +155,13 @@ export default class TrackInfoModal extends Component {
   }
 }
 
-TrackInfoModal.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  modalOpen: PropTypes.bool.isRequired,
-  windowWidth: PropTypes.number.isRequired,
-  selectedTrack: PropTypes.object,
-};
-
-TrackInfoModal.defaultProps = {
-  windowWidth: 0,
-}
-
 function mapStateToProps(state) {
+  const selectedTrackId = appSelectors.getSelectedTrackId(state);
+
   return {
     modalOpen: appSelectors.getModalOpen(state),
-    selectedTrack: mosaicSelectors.getTrack(state, appSelectors.getSelectedTrackId(state)) ||
-      recommendedSelectors.getRecommendedTrack(state, appSelectors.getSelectedTrackId(state)),
+    selectedTrack: mosaicSelectors.getTrack(state, selectedTrackId) ||
+      recommendedSelectors.getRecommendedTrack(state, selectedTrackId),
   };
 };
 

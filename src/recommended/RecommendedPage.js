@@ -5,15 +5,14 @@ import {
   PageHeader,
   Container,
   Message,
-  Text,
   Stat,
-  Space,
-  Heading,
   Button,
   ButtonOutline,
   Overlay,
 } from 'rebass';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
+import RecommendedTracksList from './RecommendedTracksList';
 import { recommendedTracksRequest, createRecommendedPlaylistRequest } from './actions';
 import {
   getError,
@@ -24,16 +23,26 @@ import {
   getTargetAttributes,
 } from './selectors';
 
-import FadeImage from '../shared-components/FadeImage';
 import FadeInTransition from '../shared-components/FadeInTransition';
 import FullscreenLoader from '../shared-components/FullscreenLoader';
 import { actions as appActions } from '../app';
 import { selectors as authSelectors } from '../auth';
-import { getAlbumArtUrlForTrack } from '../utils';
 
 class RecommendedPage extends Component {
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    idToken: PropTypes.string.isRequired,
+    recommendedTracks: ImmutablePropTypes.map.isRequired,
+    targetAttributes: ImmutablePropTypes.map.isRequired,
+    isFetching: PropTypes.bool.isRequired,
+    isCreatingPlaylist: PropTypes.bool.isRequired,
+    playlistCreated: PropTypes.bool.isRequired,
+    error: PropTypes.object,
+  };
+
   componentDidMount() {
     const { dispatch, idToken } = this.props;
+
     dispatch(recommendedTracksRequest(idToken));
   }
 
@@ -105,89 +114,54 @@ class RecommendedPage extends Component {
                   label="Acousticness"
                   color="green"
                   unit="%"
-                  value={Math.round(targetAttributes.acousticness * 100)}
+                  value={Math.round(targetAttributes.get('acousticness') * 100)}
                 />
                 <Stat
                   m={2}
                   label="Danceability"
                   color="green"
                   unit="%"
-                  value={Math.round(targetAttributes.danceability * 100)}
+                  value={Math.round(targetAttributes.get('danceability') * 100)}
                 />
                 <Stat
                   m={2}
                   label="Energy"
                   color="green"
                   unit="%"
-                  value={Math.round(targetAttributes.energy * 100)}
+                  value={Math.round(targetAttributes.get('energy') * 100)}
                 />
                 <Stat
                   m={2}
                   label="Instrumentalness"
                   color="green"
                   unit="%"
-                  value={Math.round(targetAttributes.instrumentalness * 100)}
+                  value={Math.round(targetAttributes.get('instrumentalness') * 100)}
                 />
                 <Stat
                   m={2}
                   label="Speechiness"
                   color="green"
                   unit="%"
-                  value={Math.round(targetAttributes.speechiness * 100)}
+                  value={Math.round(targetAttributes.get('speechiness') * 100)}
                 />
                 <Stat
                   m={2}
                   label="Valence"
                   color="green"
                   unit="%"
-                  value={Math.round(targetAttributes.valence * 100)}
+                  value={Math.round(targetAttributes.get('valence') * 100)}
                 />
               </Flex>
-              {
-                recommendedTracks.map((t, index) =>
-                  <Flex
-                    key={index}
-                    align="center"
-                    my={2}
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => this.handleTrackClick(t.id)}
-                  >
-                    <FadeImage
-                      src={getAlbumArtUrlForTrack(t)}
-                      style={{
-                        minWidth: '150px',
-                        maxWidth: '150px',
-                        minHeight: '150px',
-                        maxHeight: '150px',
-                        marginRight: '16px',
-                      }}
-                    />
-                    <Box>
-                      <Heading level={3} children={t.name} />
-                      <Text small children={t.artists.map(a => a.name).join(', ')} />
-                      <Text small children={t.album.name} />
-                    </Box>
-                    <Space auto />
-                  </Flex>
-                )
-              }
+              <RecommendedTracksList
+                recommendedTracks={recommendedTracks}
+                trackClickHandler={this.handleTrackClick}
+              />
             </Container>
           </Box>
         </FadeInTransition>
     );
   }
 }
-
-RecommendedPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  idToken: PropTypes.string.isRequired,
-  recommendedTracks: PropTypes.array.isRequired,
-  targetAttributes: PropTypes.object.isRequired,
-  isFetching: PropTypes.bool.isRequired,
-  isCreatingPlaylist: PropTypes.bool.isRequired,
-  playlistCreated: PropTypes.bool.isRequired,
-  error: PropTypes.object,
-};
 
 function mapStateToProps(state) {
   return {
