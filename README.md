@@ -9,8 +9,7 @@ I built this web app teach myself about front-end development with
 For a long while I've yearned for an enjoyable, fast and understandable way to create
 front-ends for APIs that I build. I've experimented with various other frameworks/tools
 but none resonated with me like the React/Redux combo. The community around these
-technologies is outstanding, something I feel back-end technologies sometimes lack. I
-haven't had this much fun writing code in a while!
+technologies is outstanding, something I feel back-end technologies can lack.
 
 This app connects to the [Spotify API](https://developer.spotify.com/web-api/) using the Implicit
 Grant Flow to authenticate. I'm a hobby musician with a deep interest in music and music production.
@@ -35,13 +34,11 @@ acquired building this app on future projects.
 
 ## Technologies Used
 
-* [React](https://facebook.github.io/react/)
-* [Redux](https://github.com/reactjs/redux) (ft. various middleware)
+* [React](https://facebook.github.io/react/) (ft. various packages)
+* [Redux](https://github.com/reactjs/redux/) (ft. various middleware)
 * [Redux Saga](https://github.com/yelouafi/redux-saga/)
-* [React Router](https://github.com/reactjs/react-router/)
-* [React Motion](https://github.com/chenglou/react-motion)
+* [Immutable](https://github.com/facebook/immutable-js/)
 * [Rebass](https://github.com/jxnblk/rebass)
-* [Reflexbox](https://github.com/jxnblk/reflexbox)
 * [Webpack](https://github.com/webpack/webpack)
 * [Node.js](https://github.com/nodejs/node)
 * Few more tings...
