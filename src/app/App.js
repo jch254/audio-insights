@@ -54,8 +54,8 @@ class App extends Component {
         <Navbar
           dropdownOpen={dropdownOpen}
           idToken={idToken}
-          toggleDropdown={ this.toggleDropdown }
-          handleTermChange={ this.handleTermChange }
+          toggleDropdown={this.toggleDropdown}
+          handleTermChange={this.handleTermChange}
         />
         {children}
         <WindowDimensionsWrapper>
@@ -67,12 +67,12 @@ class App extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
+const mapStateToProps = state => (
+  {
     currentTerm: getCurrentTerm(state),
     dropdownOpen: getDropdownOpen(state),
     idToken: authSelectors.getIdToken(state),
-  };
-};
+  }
+);
 
 export default connect(mapStateToProps)(App);

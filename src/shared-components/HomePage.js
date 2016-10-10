@@ -4,7 +4,7 @@ import { Flex } from 'reflexbox';
 import {
   Heading,
   Button,
-} from 'rebass'
+} from 'rebass';
 
 import FadeInTransition from './FadeInTransition';
 
@@ -34,15 +34,15 @@ class HomePage extends Component {
           <Heading style={{ textAlign: 'center' }} level={2}>
             Derived from your Spotify library
           </Heading>
-            {
-              !this.props.idToken ?
-                <Button my={3} big pill onClick={ this.handleLogin } backgroundColor="green">
-                  Login with Spotify
-                </Button> :
-                <Button my={3} big pill onClick={ this.handleLogout } backgroundColor="red">
-                  Logout
-                </Button>
-            }
+          {
+            !this.props.idToken ?
+              <Button my={3} big pill onClick={this.handleLogin} backgroundColor="green">
+                Login with Spotify
+              </Button> :
+              <Button my={3} big pill onClick={this.handleLogout} backgroundColor="red">
+                Logout
+              </Button>
+          }
         </Flex>
       </FadeInTransition>
     );

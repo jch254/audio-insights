@@ -16,10 +16,11 @@ export default (
     <IndexRoute component={HomePage} />
     <Route path="/about" component={AboutPage} />
     <Route path="/glossary" component={GlossaryPage} />
-    <Route path="/spotifylogincallback"
+    <Route
+      path="/spotifylogincallback"
       component={authComponents.SpotifyLoginCallbackHandler}
     />
-  <Route component={authComponents.RestrictedPage}>
+    <Route component={authComponents.RestrictedPage}>
       <Route path="/mosaic" component={mosaicComponents.MosaicPage} />
       <Route path="/recommended" component={recommendedComponents.RecommendedPage} />
       <Route path="/artists" component={artistsComponents.ArtistsPage} />

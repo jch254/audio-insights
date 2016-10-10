@@ -38,7 +38,7 @@ export function* fetchMosaicSaga(idToken) {
 
 export function* watchMosaicRequest() {
   while (true) {
-    const { idToken } = yield take(MOSAIC_REQUEST)
+    const { idToken } = yield take(MOSAIC_REQUEST);
 
     yield call(fetchMosaicSaga, idToken);
   }

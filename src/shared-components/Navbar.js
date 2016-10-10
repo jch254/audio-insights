@@ -12,24 +12,32 @@ import {
 const Navbar = ({ idToken, dropdownOpen, toggleDropdown, handleTermChange }) => (
   <Toolbar backgroundColor="black" >
     <NavItem is="object" color="midgray">
-      <IndexLink to="/" children="Home" />
+      <IndexLink to="/">
+        Home
+      </IndexLink>
     </NavItem>
     {
       idToken &&
       <NavItem is="object" color="midgray">
-        <Link to="/mosaic" children="Mosaic" />
+        <Link to="/mosaic">
+          Mosaic
+        </Link>
       </NavItem>
     }
     {
       idToken &&
       <NavItem is="object" color="midgray">
-        <Link to="/recommended" children="Recommended" />
+        <Link to="/recommended">
+          Recommended
+        </Link>
       </NavItem>
     }
     {
       idToken &&
       <NavItem is="object" color="midgray">
-        <Link to="/artists" children="Artists" />
+        <Link to="/artists">
+          Artists
+        </Link>
       </NavItem>
     }
     <Space auto />
@@ -47,16 +55,19 @@ const Navbar = ({ idToken, dropdownOpen, toggleDropdown, handleTermChange }) => 
         >
           <NavItem
             onClick={() => handleTermChange(idToken, 'short_term')}
-            children="Short"
-          />
+          >
+            Short
+          </NavItem>
           <NavItem
             onClick={() => handleTermChange(idToken, 'medium_term')}
-            children="Medium"
-          />
+          >
+            Medium
+          </NavItem>
           <NavItem
             onClick={() => handleTermChange(idToken, 'long_term')}
-            children="Long"
-          />
+          >
+            Long
+          </NavItem>
         </DropdownMenu>
       </Dropdown>
     }

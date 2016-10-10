@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import Icon from 'react-geomicons'
+import Icon from 'react-geomicons';
 import { ButtonCircle } from 'rebass';
 
 class PlayPause extends Component {
@@ -19,7 +19,7 @@ class PlayPause extends Component {
     const isPlaying = this.state.playing;
 
     if (isPlaying) {
-      this.preview.pause()
+      this.preview.pause();
     } else {
       this.preview.play();
     }
@@ -47,14 +47,14 @@ class PlayPause extends Component {
           style={{ marginLeft: this.state.playing ? '0px' : '4px' }}
         />
         <audio
-          ref={(component) => this.preview = component}
-          src={ this.props.previewUrl }
+          ref={component => (this.preview = component)}
+          src={this.props.previewUrl}
           type="audio/mpeg"
           onEnded={this.previewEnded}
         />
       </ButtonCircle>
     );
   }
-};
+}
 
 export default PlayPause;

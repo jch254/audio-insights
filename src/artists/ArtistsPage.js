@@ -77,13 +77,13 @@ class ArtistsPage extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
+const mapStateToProps = state => (
+  {
     idToken: authSelectors.getIdToken(state),
     artists: getArtists(state),
     isFetching: getIsFetching(state),
     error: getError(state),
-  };
-};
+  }
+);
 
 export default connect(mapStateToProps)(ArtistsPage);

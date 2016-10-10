@@ -8,7 +8,7 @@ import { setStoredAuthState, removeStoredAuthState } from '../utils';
 
 export function* watchLoginRequest() {
   while (true) {
-    const { returnPath } = yield take(LOGIN_REQUEST)
+    const { returnPath } = yield take(LOGIN_REQUEST);
 
     redirectToSpotifyLogin(returnPath);
   }
@@ -16,7 +16,7 @@ export function* watchLoginRequest() {
 
 export function* watchLoginSuccess() {
   while (true) {
-    const { idToken, idTokenExpiry } = yield take(LOGIN_SUCCESS)
+    const { idToken, idTokenExpiry } = yield take(LOGIN_SUCCESS);
 
     setStoredAuthState(idToken, idTokenExpiry);
   }
@@ -24,7 +24,7 @@ export function* watchLoginSuccess() {
 
 export function* watchLoginFailure() {
   while (true) {
-    yield take(LOGIN_FAILURE)
+    yield take(LOGIN_FAILURE);
 
     removeStoredAuthState();
   }
@@ -32,7 +32,7 @@ export function* watchLoginFailure() {
 
 export function* watchLogout() {
   while (true) {
-    yield take(LOGOUT)
+    yield take(LOGOUT);
 
     removeStoredAuthState();
   }

@@ -11,7 +11,7 @@ import {
   Heading,
   Divider,
   ButtonCircle,
-} from 'rebass'
+} from 'rebass';
 import { Flex } from 'reflexbox';
 
 import FadeInTransition from './FadeInTransition';
@@ -39,7 +39,7 @@ class TrackInfoModal extends Component {
     this.props.dispatch(appActions.closeModal());
   }
 
-  mapPitchClassToKey(pitchClass) {
+  mapPitchClassToKey = pitchClass => {
     switch (pitchClass) {
       case 0:
         return 'C';
@@ -68,11 +68,9 @@ class TrackInfoModal extends Component {
       default:
         return 'UNKNOWN';
     }
-  }
+  };
 
-  mapMode(mode) {
-    return mode === 1 ? 'major' : 'minor';
-  }
+  mapMode = mode => (mode === 1 ? 'major' : 'minor');
 
   render() {
     const { modalOpen, selectedTrack, windowWidth } = this.props;
@@ -95,7 +93,7 @@ class TrackInfoModal extends Component {
                 align="center"
               >
                 <FadeImage
-                  src={ getAlbumArtUrlForTrack(selectedTrack) }
+                  src={getAlbumArtUrlForTrack(selectedTrack)}
                   style={{
                     width: '300px',
                     height: '300px',
@@ -104,12 +102,17 @@ class TrackInfoModal extends Component {
                   }}
                 />
                 <Flex mt={2} mr={2} wrap column style={{ width: '300px' }}>
-                  <Heading color="black" level={3} children={selectedTrack.get('name')} />
+                  <Heading color="black" level={3}>
+                    {selectedTrack.get('name')}
+                  </Heading>
                   <Text
                     color="black"
-                    children={selectedTrack.get('artists').map(a => a.get('name')).join(', ')}
-                  />
-                <Text color="black" children={selectedTrack.getIn(['album', 'name'])} />
+                  >
+                    {selectedTrack.get('artists').map(a => a.get('name')).join(', ')}
+                  </Text>
+                  <Text color="black">
+                    {selectedTrack.getIn(['album', 'name'])}
+                  </Text>
                   <Divider ml={0} width={150} />
                   <Flex column={windowWidth > 480} style={{ marginTop: '-16px' }}>
                     <Flex column mt={2}>
@@ -151,18 +154,16 @@ class TrackInfoModal extends Component {
           </Overlay>
         </FadeInTransition>
         : null
-    )
+    );
   }
 }
 
-function mapStateToProps(state) {
-  const selectedTrackId = appSelectors.getSelectedTrackId(state);
-
-  return {
+const mapStateToProps = state => (
+  {
     modalOpen: appSelectors.getModalOpen(state),
-    selectedTrack: mosaicSelectors.getTrack(state, selectedTrackId) ||
-      recommendedSelectors.getRecommendedTrack(state, selectedTrackId),
-  };
-};
+    selectedTrack: mosaicSelectors.getTrack(state, appSelectors.getSelectedTrackId(state)) ||
+      recommendedSelectors.getRecommendedTrack(state, appSelectors.getSelectedTrackId(state)),
+  }
+);
 
 export default connect(mapStateToProps)(TrackInfoModal);

@@ -18,7 +18,7 @@ class RecommendedTracksList extends Component {
   };
 
   shouldComponentUpdate(nextProps) {
-    return !Immutable.is(nextProps.recommendedTracks, this.props.recommendedTracks)
+    return !Immutable.is(nextProps.recommendedTracks, this.props.recommendedTracks);
   }
 
   render() {
@@ -48,11 +48,15 @@ class RecommendedTracksList extends Component {
                   }}
                 />
                 <Box>
-                  <Heading level={3} children={recommendedTrack.get('name')} />
+                  <Heading level={3}>
+                    {recommendedTrack.get('name')}
+                  </Heading>
                   <Text small>
                     {recommendedTrack.get('artists').map(a => a.get('name')).join(', ')}
                   </Text>
-                  <Text small children={recommendedTrack.getIn(['album', 'name'])} />
+                  <Text small>
+                    {recommendedTrack.getIn(['album', 'name'])}
+                  </Text>
                 </Box>
                 <Space auto />
               </Flex>
@@ -61,6 +65,6 @@ class RecommendedTracksList extends Component {
       </Box>
     );
   }
-};
+}
 
 export default RecommendedTracksList;

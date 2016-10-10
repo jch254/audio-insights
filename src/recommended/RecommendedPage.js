@@ -89,8 +89,9 @@ class RecommendedPage extends Component {
                       big
                       color="green"
                       style={{ cursor: 'default' }}
-                      children="Playlist saved to Spotify"
-                    /> :
+                    >
+                      Playlist saved to Spotify
+                    </ButtonOutline> :
                     !error &&
                     <Button
                       mt={2}
@@ -98,8 +99,10 @@ class RecommendedPage extends Component {
                       big
                       onClick={() => this.handleSaveClick(idToken)}
                       backgroundColor="green"
-                      children="Save playlist to Spotify"
-                    />
+                    >
+                      Save playlist to Spotify
+                    </Button>
+
                 }
               </PageHeader>
               {
@@ -173,6 +176,6 @@ function mapStateToProps(state) {
     playlistCreated: getPlaylistCreated(state),
     error: getError(state),
   };
-};
+}
 
 export default connect(mapStateToProps)(RecommendedPage);

@@ -69,6 +69,6 @@ class AlbumArtMosaic extends Component {
       </Flex>
     );
   }
-};
+}
 
 export default AlbumArtMosaic;

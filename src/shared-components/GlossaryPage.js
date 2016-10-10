@@ -23,14 +23,18 @@ const GlossaryPage = () => (
         {
           glossary.sort((a, b) => a.title.localeCompare(b.title)).map((g, index) =>
             <Box key={index} mb={2}>
-              <Heading level={3} children={g.title} />
-              <Text mb={2} children={g.definition} />
+              <Heading level={3}>
+                {g.title}
+              </Heading>
+              <Text mb={2}>
+                {g.definition}
+              </Text>
             </Box>
           )
         }
       </Container>
     </Box>
   </FadeInTransition>
-)
+);
 
 export default GlossaryPage;

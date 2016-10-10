@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Box } from 'reflexbox';
 import {
   Message,
-} from 'rebass'
+} from 'rebass';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
 import AlbumArtMosaic from './AlbumArtMosaic';
@@ -64,6 +64,6 @@ function mapStateToProps(state) {
     isFetching: getIsFetching(state),
     error: getError(state),
   };
-};
+}
 
 export default connect(mapStateToProps)(MosaicPage);

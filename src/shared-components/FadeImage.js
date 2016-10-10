@@ -29,17 +29,18 @@ class FadeImage extends Component {
         style={{ opacity: spring(this.state.loaded ? 1 : 0) }}
       >
         { interpolatedStyle =>
-            <img
-              src={src}
-              style={{
-                ...style,
-                opacity: interpolatedStyle.opacity,
-              }}
-              onClick={onClickHandler}
-              onLoad={this.handleImageLoad}
-            />
+          <img
+            role="presentation"
+            src={src}
+            style={{
+              ...style,
+              opacity: interpolatedStyle.opacity,
+            }}
+            onClick={onClickHandler}
+            onLoad={this.handleImageLoad}
+          />
           }
-        </Motion>
+      </Motion>
     );
   }
 }

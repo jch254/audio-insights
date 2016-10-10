@@ -27,7 +27,7 @@ client_id=${encodeURIComponent(process.env.SPOTIFY_CLIENT_ID)}&
 redirect_uri=${encodeURIComponent(process.env.SPOTIFY_CALLBACK_URI)}&
 scope=${encodeURIComponent(process.env.SPOTIFY_SCOPES)}&
 response_type=token&state=${encodeURIComponent(returnPath)}`;
-};
+}
 
 export function fetchUserProfile(idToken) {
   return fetch(
@@ -117,18 +117,16 @@ export function* handleSpotifyApiError(error, failureAction, redirectPath) {
 
   if (response === undefined) {
     yield put(failureAction(error.message));
+  } else if (response.status === 401) {
+    // Unauthorised - redirect to Spotify login
+    yield put(authActions.loginRequest(redirectPath));
   } else {
-    if (response.status === 401) {
-      // Unauthorised - redirect to Spotify login
-      yield put(authActions.loginRequest(redirectPath));
-    } else {
-      const responseError = {
-        status: response.status,
-        statusText: response.statusText,
-        message: error.message,
-      };
+    const responseError = {
+      status: response.status,
+      statusText: response.statusText,
+      message: error.message,
+    };
 
-      yield put(failureAction(responseError));
-    }
+    yield put(failureAction(responseError));
   }
 }

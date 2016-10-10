@@ -35,7 +35,7 @@ export function* fetchArtistsSaga(idToken) {
 
 export function* watchArtistsRequest() {
   while (true) {
-    const { idToken } = yield take(ARTISTS_REQUEST)
+    const { idToken } = yield take(ARTISTS_REQUEST);
 
     yield call(fetchArtistsSaga, idToken);
   }

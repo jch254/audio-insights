@@ -27,6 +27,19 @@ import {
   handleSpotifyApiError,
 } from '../spotifyApiService';
 
+const getAverageAudioFeature = (tracks, featureSelector) =>
+  tracks.map(featureSelector).reduce((a, b) => a + b, 0) / tracks.count();
+
+const getCommaSeparatedSeedArtistIds = tracks =>
+  tracks
+    .valueSeq()
+    .flatMap(t => t.get('artists'))
+    .groupBy(a => a.get('id'))
+    .sort((a, b) => b.size - a.size)
+    .take(5)
+    .keySeq()
+    .join();
+
 export function* fetchRecommendedTracksSaga(idToken) {
   try {
     const isHydrated = yield select(getIsHydrated);
@@ -71,7 +84,7 @@ export function* fetchRecommendedTracksSaga(idToken) {
 
 export function* watchRecommendedTracksRequest() {
   while (true) {
-    const { idToken } = yield take(RECOMMENDED_TRACKS_REQUEST)
+    const { idToken } = yield take(RECOMMENDED_TRACKS_REQUEST);
 
     yield call(fetchRecommendedTracksSaga, idToken);
   }
@@ -97,23 +110,8 @@ export function* createRecommendedPlaylistSaga(idToken) {
 
 export function* watchCreateRecommendedPlaylistRequest() {
   while (true) {
-    const { idToken } = yield take(CREATE_RECOMMENDED_PLAYLIST_REQUEST)
+    const { idToken } = yield take(CREATE_RECOMMENDED_PLAYLIST_REQUEST);
 
     yield call(createRecommendedPlaylistSaga, idToken);
   }
-}
-
-function getAverageAudioFeature(tracks, featureSelector) {
-  return tracks.map(featureSelector).reduce((a, b) => a + b, 0) / tracks.count();
-}
-
-function getCommaSeparatedSeedArtistIds(tracks) {
-  return tracks
-    .valueSeq()
-    .flatMap(t => t.get('artists'))
-    .groupBy(a => a.get('id'))
-    .sort((a, b) => b.size - a.size)
-    .take(5)
-    .keySeq()
-    .join();
 }

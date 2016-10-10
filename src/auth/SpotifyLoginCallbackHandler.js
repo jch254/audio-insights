@@ -42,7 +42,7 @@ class SpotifyLoginCallbackHandler extends Component {
   render() {
     return (
       <FullscreenLoader delay={0} />
-    )
+    );
   }
 }
 
