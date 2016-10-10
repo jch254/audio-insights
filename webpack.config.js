@@ -2,14 +2,13 @@
 
 var path = require('path');
 var webpack = require('webpack');
-var config = require('./config');
 
 module.exports = {
   devtool: 'eval-source-map',
   entry: [
     'babel-polyfill',
     'webpack-hot-middleware/client?reload=true',
-    './src/index'
+    path.join(__dirname, 'src/index.js')
   ],
   output: {
     path: path.join(__dirname, 'dist/js'),
@@ -20,9 +19,14 @@ module.exports = {
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-    new webpack.DefinePlugin(config)
+    new webpack.DefinePlugin({
+      'process.env': { 'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development') }
+    })
   ],
   resolve: {
+    modulesDirectories: [
+      'node_modules',
+    ],
     extensions: ['', '.js', '.jsx']
   },
   module: {
@@ -32,10 +36,6 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /node_modules/,
         include: __dirname,
-        query: {
-          plugins: ['transform-runtime'],
-          presets: ['es2015', 'stage-0', 'stage-1', 'react'],
-        }
       },
       {
         test: /\.json?$/,
@@ -43,8 +43,8 @@ module.exports = {
       },
       {
         test: /\.css?$/,
-        loaders: ['style', 'raw'],
-        include: __dirname
+        loader: 'style-loader!css-loader?modules',
+        include: /src/
       },
       { test: /\.(jpe?g|png|gif|svg)$/,
         loader: 'url',

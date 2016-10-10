@@ -2,7 +2,6 @@
 
 var path = require('path');
 var webpack = require('webpack');
-var config = require('./config');
 
 module.exports = {
   entry: [
@@ -16,14 +15,23 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
         warnings: false,
         screw_ie8: true
       }
     }),
-    new webpack.DefinePlugin(config)
+    new webpack.DefinePlugin({
+      'process.env': { 'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production') }
+    })
   ],
+  resolve: {
+    modulesDirectories: [
+      'node_modules',
+    ],
+    extensions: ['', '.js', '.jsx']
+  },
   module: {
     loaders: [
       {
@@ -31,10 +39,6 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /node_modules/,
         include: __dirname,
-        query: {
-          plugins: ['transform-runtime'],
-          presets: ['es2015', 'stage-0', 'stage-1', 'react'],
-        }
       },
       {
         test: /\.json?$/,
@@ -42,8 +46,8 @@ module.exports = {
       },
       {
         test: /\.css?$/,
-        loaders: ['style', 'raw'],
-        include: __dirname
+        loader: 'style-loader!css-loader?modules',
+        include: /src/
       },
       { test: /\.(jpe?g|png|gif|svg)$/,
         loader: 'url',

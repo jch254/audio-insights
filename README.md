@@ -41,27 +41,29 @@ acquired building this app on future projects.
 * [Rebass](https://github.com/jxnblk/rebass)
 * [Webpack](https://github.com/webpack/webpack)
 * [Node.js](https://github.com/nodejs/node)
-* Few more tings...
 
 ## Running locally
 
-1. Clone this repository
-2. Create a new [Spotify API app](https://developer.spotify.com/my-applications)
-3. Add http://localhost:3001/spotifylogincallback as a Redirect URI for your newly created app (don't forget to press save)
-4. Copy configExmple.js to config.js (gitignored)
-5. Update the newly copied config.js with your Spotify API app's Client ID
-6. Run the following commands in the app's root directory then open http://localhost:3001
+**SPOTIFY_CLIENT_ID, SPOTIFY_SCOPES and SPOTIFY_CALLBACK_URI environment variables must be set before `npm run` command below.**
+
+E.g. `SPOTIFY_CLIENT_ID=YOUR_CLIENT_ID SPOTIFY_SCOPES="user-top-read playlist-modify-private" SPOTIFY_CALLBACK_URI="http://localhost:3001/spotifylogincallback" npm run dev`
+
+1. Create a new [Spotify API app](https://developer.spotify.com/my-applications)
+1. Add http://localhost:3001/spotifylogincallback as a Redirect URI for your newly created app (don't forget to press save)
+1. Run the following commands in the app's root directory then open http://localhost:3001
 ```
 npm install
 npm run dev
 ```
 
 ## Building the production version
-1. Update config.js with your production config values
-2. Run the following commands in the app's root directory then check the /dist folder
+
+**SPOTIFY_CLIENT_ID, SPOTIFY_SCOPES and SPOTIFY_CALLBACK_URI environment variable must be set before `npm run` command below.**
+
+E.g. `SPOTIFY_CLIENT_ID=YOUR_CLIENT_ID SPOTIFY_SCOPES="user-top-read playlist-modify-private" SPOTIFY_CALLBACK_URI="http://localhost:3001/spotifylogincallback" npm run build`
+
+1. Run the following commands in the app's root directory then check the /dist folder
 ```
 npm install
 npm run build
 ```
-
-## Good times!
