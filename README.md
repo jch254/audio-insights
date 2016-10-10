@@ -7,9 +7,9 @@
 I built this web app teach myself about front-end development with
 [React](https://facebook.github.io/react/) and [Redux](http://redux.js.org).
 For a long while I've yearned for an enjoyable, fast and understandable way to create
-front-ends for APIs that I build. I've experimented with various other frameworks/tools
+UIs for APIs that I build. I've experimented with various other frameworks/tools
 but none resonated with me like the React/Redux combo. The community around these
-technologies is outstanding, something I feel back-end technologies can lack.
+technologies is outstanding.
 
 This app connects to the [Spotify API](https://developer.spotify.com/web-api/) using the Implicit
 Grant Flow to authenticate. I'm a hobby musician with a deep interest in music and music production.
