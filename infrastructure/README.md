@@ -23,7 +23,7 @@ To deploy to AWS, you must:
 1. `terraform plan -var-file audio-insights.tfvars`
 1. `terraform apply -var-file audio-insights-2.tfvars`
 
-#### Updating ritus.io infrastructure
+#### Updating Audio Insights infrastructure
 
 1. Make necessary infrastructure code changes.
 1. Configure Terraform to use Remote State using the following command:
@@ -31,7 +31,7 @@ To deploy to AWS, you must:
 1. `terraform plan -var-file audio-insights.tfvars`
 1. `terraform apply -var-file audio-insights-2.tfvars`
 
-#### Destroying ritus.io infrastructure (use with care)
+#### Destroying Audio Insights infrastructure (use with care)
 
 1. Configure Terraform to use Remote State using the following command:
 ```terraform remote config -backend=s3 -backend-config="bucket=YOUR_BUCKET_NAME" -backend-config="key=audio-insights.tfstate" -backend-config="region=YOUR_REGION" -backend-config="encrypt=true"```

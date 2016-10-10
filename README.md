@@ -1,6 +1,6 @@
 # [Audio Insights (Live Demo)](https://ai.603.nu)
 
-[![Build Status](https://semaphoreci.com/api/v1/jch254/audio-insights-2/branches/master/shields_badge.svg)](https://semaphoreci.com/jch254/audio-insights-2)
+[Bitbucket Pipelines status](https://bitbucket.org/jch254/audio-insights/addon/pipelines/home)
 
 ## Overview
 
@@ -42,11 +42,11 @@ acquired building this app on future projects.
 * [Webpack](https://github.com/webpack/webpack)
 * [Node.js](https://github.com/nodejs/node)
 
-## Running locally
-
-**SPOTIFY_CLIENT_ID, SPOTIFY_SCOPES and SPOTIFY_CALLBACK_URI environment variables must be set before `npm run` command below.**
+**SPOTIFY_CLIENT_ID, SPOTIFY_SCOPES and SPOTIFY_CALLBACK_URI environment variable must be set before `npm run` commands below.**
 
 E.g. `SPOTIFY_CLIENT_ID=YOUR_CLIENT_ID SPOTIFY_SCOPES="user-top-read playlist-modify-private" SPOTIFY_CALLBACK_URI="http://localhost:3001/spotifylogincallback" npm run dev`
+
+## Running locally
 
 1. Create a new [Spotify API app](https://developer.spotify.com/my-applications)
 1. Add http://localhost:3001/spotifylogincallback as a Redirect URI for your newly created app (don't forget to press save)
@@ -59,13 +59,13 @@ npm run dev
 
 ## Building the production version
 
-**SPOTIFY_CLIENT_ID, SPOTIFY_SCOPES and SPOTIFY_CALLBACK_URI environment variable must be set before `npm run` command below.**
-
-E.g. `SPOTIFY_CLIENT_ID=YOUR_CLIENT_ID SPOTIFY_SCOPES="user-top-read playlist-modify-private" SPOTIFY_CALLBACK_URI="http://localhost:3001/spotifylogincallback" npm run build`
-
 1. Run the following commands in the app's root directory then check the /dist folder
 
 ```
 npm install
 npm run build
 ```
+
+### Deployment/Infrastructure
+
+Refer to the [/infrastructure](https://github.com/jch254/audio-insights/tree/master/infrastructure) directory.
