@@ -51,6 +51,7 @@ E.g. `SPOTIFY_CLIENT_ID=YOUR_CLIENT_ID SPOTIFY_SCOPES="user-top-read playlist-mo
 1. Create a new [Spotify API app](https://developer.spotify.com/my-applications)
 1. Add http://localhost:3001/spotifylogincallback as a Redirect URI for your newly created app (don't forget to press save)
 1. Run the following commands in the app's root directory then open http://localhost:3001
+
 ```
 npm install
 npm run dev
@@ -63,6 +64,7 @@ npm run dev
 E.g. `SPOTIFY_CLIENT_ID=YOUR_CLIENT_ID SPOTIFY_SCOPES="user-top-read playlist-modify-private" SPOTIFY_CALLBACK_URI="http://localhost:3001/spotifylogincallback" npm run build`
 
 1. Run the following commands in the app's root directory then check the /dist folder
+
 ```
 npm install
 npm run build
