@@ -10,7 +10,7 @@ import FadeInTransition from './FadeInTransition';
 
 import { actions as authActions, selectors as authSelectors } from '../auth';
 
-export default class HomePage extends Component {
+class HomePage extends Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
     idToken: PropTypes.string,

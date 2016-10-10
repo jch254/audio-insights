@@ -23,7 +23,7 @@ import { selectors as mosaicSelectors } from '../mosaic';
 import { selectors as recommendedSelectors } from '../recommended';
 import { getAlbumArtUrlForTrack } from '../utils';
 
-export default class TrackInfoModal extends Component {
+class TrackInfoModal extends Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
     modalOpen: PropTypes.bool.isRequired,

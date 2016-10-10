@@ -14,7 +14,7 @@ import { selectors as authSelectors } from '../auth';
 import { actions as mosaicActions } from '../mosaic';
 import { actions as recommendedActions } from '../recommended';
 
-export default class App extends Component {
+class App extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
     dispatch: PropTypes.func.isRequired,
