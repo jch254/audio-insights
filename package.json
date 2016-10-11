@@ -19,6 +19,7 @@
     "isomorphic-fetch": "^2.2.1",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
+    "react-functional": "^2.0.0",
     "react-ga": "^2.1.2",
     "react-geomicons": "^2.0.5",
     "react-immutable-proptypes": "^2.1.0",

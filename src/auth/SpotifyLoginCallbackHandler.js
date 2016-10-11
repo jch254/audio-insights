@@ -46,4 +46,4 @@ class SpotifyLoginCallbackHandler extends Component {
   }
 }
 
-export default connect(state => state)(SpotifyLoginCallbackHandler);
+export default connect()(SpotifyLoginCallbackHandler);

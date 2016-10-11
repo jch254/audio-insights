@@ -10,7 +10,7 @@ import {
 import { getStoredAuthState } from '../utils';
 
 export const initialState = new Map({
-  loggingIn: false,
+  isLoggingIn: false,
   idToken: null,
   error: null,
 });
@@ -18,15 +18,15 @@ export const initialState = new Map({
 export default function auth(state = initialState.merge(getStoredAuthState()), action) {
   switch (action.type) {
     case LOGIN_REQUEST:
-      return state.set('loggingIn', true);
+      return state.set('isLoggingIn', true);
     case LOGIN_SUCCESS:
       return state.merge({
-        loggingIn: false,
+        isLoggingIn: false,
         idToken: action.idToken,
       });
     case LOGIN_FAILURE:
       return state.merge({
-        loggingIn: false,
+        isLoggingIn: false,
         idToken: null,
         error: action.error,
       });
