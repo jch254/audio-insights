@@ -60,7 +60,7 @@ const TrackInfoModal = ({ isModalOpen, selectedTrack, windowWidth, actions }) =>
   return (
     selectedTrack ?
       <FadeInTransition>
-        <Overlay key="modal" open={isModalOpen} onDismiss={this.closeModal} >
+        <Overlay key="modal" open={isModalOpen} onDismiss={() => actions.closeModal()} >
           <Panel>
             <PanelHeader>
               <Text>
