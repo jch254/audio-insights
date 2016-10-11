@@ -12,7 +12,6 @@ import {
   createRecommendedPlaylistFailure,
 } from './actions';
 import { getIsHydrated, getRecommendedTracks } from './selectors';
-
 import { selectors as appSelectors } from '../app';
 import {
   sagas as mosaicSagas,
@@ -57,6 +56,7 @@ export function* fetchRecommendedTracksSaga(idToken) {
       }
 
       const seedArtistIds = getCommaSeparatedSeedArtistIds(tracks);
+
       const targetAttributes = new Map({
         acousticness: getAverageAudioFeature(tracks, t => t.get('acousticness')),
         danceability: getAverageAudioFeature(tracks, t => t.get('danceability')),
@@ -70,8 +70,10 @@ export function* fetchRecommendedTracksSaga(idToken) {
         yield call(fetchRecommendedTracks, idToken, targetAttributes, seedArtistIds);
 
       const recommendedTrackIds = recommendedTracks.keySeq().toSet().join();
+
       const { audioFeaturesForTracks } =
         yield call(fetchAudioFeaturesForTracks, idToken, recommendedTrackIds);
+
       const tracksWithAudioFeatures = recommendedTracks.mergeDeep(audioFeaturesForTracks);
 
       yield put(recommendedTracksSuccess(
@@ -93,15 +95,22 @@ export function* watchRecommendedTracksRequest() {
 export function* createRecommendedPlaylistSaga(idToken) {
   try {
     const recommendedTracks = yield select(getRecommendedTracks);
+
     const recommendedTrackUris = recommendedTracks.map(track => track.get('uri')).join();
+
     const { userProfile } = yield call(fetchUserProfile, idToken);
+
     const currentTerm = yield select(appSelectors.getCurrentTerm);
+
     const playlistName = `AI Recommended (${currentTerm})`;
+
     const { playlist } =
       yield call(createPrivatePlaylist, idToken, userProfile.get('id'), playlistName);
+
     yield call(
       addTracksToPlaylist, idToken, userProfile.get('id'), playlist.get('id'), recommendedTrackUris
     );
+
     yield put(createRecommendedPlaylistSuccess());
   } catch (error) {
     yield call(handleSpotifyApiError, error, createRecommendedPlaylistFailure, 'recommended');

@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Flex, Box } from 'reflexbox';
 import {
@@ -11,6 +11,8 @@ import {
   Overlay,
 } from 'rebass';
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import { bindActionCreators } from 'redux';
+import functional from 'react-functional';
 
 import RecommendedTracksList from './RecommendedTracksList';
 import { recommendedTracksRequest, createRecommendedPlaylistRequest } from './actions';
@@ -18,56 +20,30 @@ import {
   getError,
   getIsCreatingPlaylist,
   getIsFetching,
-  getPlaylistCreated,
+  getIsPlaylistCreated,
   getRecommendedTracks,
   getTargetAttributes,
 } from './selectors';
-
 import FadeInTransition from '../shared-components/FadeInTransition';
 import FullscreenLoader from '../shared-components/FullscreenLoader';
 import { actions as appActions } from '../app';
 import { selectors as authSelectors } from '../auth';
 
-class RecommendedPage extends Component {
-  static propTypes = {
-    dispatch: PropTypes.func.isRequired,
-    idToken: PropTypes.string.isRequired,
-    recommendedTracks: ImmutablePropTypes.map.isRequired,
-    targetAttributes: ImmutablePropTypes.map.isRequired,
-    isFetching: PropTypes.bool.isRequired,
-    isCreatingPlaylist: PropTypes.bool.isRequired,
-    playlistCreated: PropTypes.bool.isRequired,
-    error: PropTypes.object,
-  };
+const RecommendedPage = ({
+  actions,
+  idToken,
+  isFetching,
+  isCreatingPlaylist,
+  isPlaylistCreated,
+  recommendedTracks,
+  targetAttributes,
+  error,
+}) => {
+  const onTrackClick = trackId => actions.openModal(trackId);
 
-  componentDidMount() {
-    const { dispatch, idToken } = this.props;
-
-    dispatch(recommendedTracksRequest(idToken));
-  }
-
-  handleTrackClick = (trackId) => {
-    this.props.dispatch(appActions.openModal(trackId));
-  }
-
-  handleSaveClick = (idToken) => {
-    this.props.dispatch(createRecommendedPlaylistRequest(idToken));
-  }
-
-  render() {
-    const {
-      idToken,
-      isFetching,
-      isCreatingPlaylist,
-      playlistCreated,
-      recommendedTracks,
-      targetAttributes,
-      error,
-    } = this.props;
-
-    return (
-      isFetching ?
-        <FullscreenLoader /> :
+  return (
+    isFetching ?
+      <FullscreenLoader /> :
         <FadeInTransition>
           <Box key="recommended" style={{ flex: '1 0 auto' }}>
             <Overlay key="loading" open={isCreatingPlaylist}>
@@ -81,7 +57,7 @@ class RecommendedPage extends Component {
                 heading="Recommended"
               >
                 {
-                  playlistCreated ?
+                  isPlaylistCreated ?
                     !error &&
                     <ButtonOutline
                       mt={2}
@@ -97,7 +73,7 @@ class RecommendedPage extends Component {
                       mt={2}
                       pill
                       big
-                      onClick={() => this.handleSaveClick(idToken)}
+                      onClick={() => actions.createRecommendedPlaylistRequest(idToken)}
                       backgroundColor="green"
                     >
                       Save playlist to Spotify
@@ -157,25 +133,45 @@ class RecommendedPage extends Component {
               </Flex>
               <RecommendedTracksList
                 recommendedTracks={recommendedTracks}
-                trackClickHandler={this.handleTrackClick}
+                onTrackClick={onTrackClick}
               />
             </Container>
           </Box>
         </FadeInTransition>
-    );
-  }
-}
+  );
+};
 
-function mapStateToProps(state) {
-  return {
+RecommendedPage.propTypes = {
+  actions: PropTypes.object.isRequired,
+  idToken: PropTypes.string.isRequired,
+  recommendedTracks: ImmutablePropTypes.map.isRequired,
+  targetAttributes: ImmutablePropTypes.map.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  isCreatingPlaylist: PropTypes.bool.isRequired,
+  isPlaylistCreated: PropTypes.bool.isRequired,
+  error: PropTypes.object,
+};
+
+RecommendedPage.componentDidMount = ({ actions, idToken }) => actions.recommendedTracksRequest(idToken);
+
+const mapStateToProps = state => (
+  {
     idToken: authSelectors.getIdToken(state),
     recommendedTracks: getRecommendedTracks(state),
     targetAttributes: getTargetAttributes(state),
     isFetching: getIsFetching(state),
     isCreatingPlaylist: getIsCreatingPlaylist(state),
-    playlistCreated: getPlaylistCreated(state),
+    isPlaylistCreated: getIsPlaylistCreated(state),
     error: getError(state),
-  };
-}
+  }
+);
 
-export default connect(mapStateToProps)(RecommendedPage);
+const mapDispatchToProps = dispatch => (
+  {
+    actions: bindActionCreators({
+      recommendedTracksRequest, createRecommendedPlaylistRequest, ...appActions }, dispatch
+    ),
+  }
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(functional(RecommendedPage));

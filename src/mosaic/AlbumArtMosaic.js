@@ -7,16 +7,6 @@ import FadeImage from '../shared-components/FadeImage';
 import { getAlbumArtUrlForTrack } from '../utils';
 
 class AlbumArtMosaic extends Component {
-  static propTypes = {
-    tracks: ImmutablePropTypes.map.isRequired,
-    windowWidth: PropTypes.number.isRequired,
-    tileClickHandler: PropTypes.func,
-  };
-
-  static defaultProps = {
-    windowWidth: 0,
-  };
-
   shouldComponentUpdate(nextProps) {
     if (Immutable.is(nextProps.tracks, this.props.tracks) &&
       nextProps.windowWidth === this.props.windowWidth) {
@@ -42,9 +32,10 @@ class AlbumArtMosaic extends Component {
   }
 
   render() {
-    const { tracks, tileClickHandler } = this.props;
+    const { tracks, onTileClick } = this.props;
 
     const columnWidth = Math.floor(100 / this.getColumnCount());
+
     const mosaicTiles = tracks
       .entrySeq()
       .map(([id, track]) =>
@@ -52,7 +43,7 @@ class AlbumArtMosaic extends Component {
           key={id}
           src={getAlbumArtUrlForTrack(track)}
           style={{ width: `${columnWidth}%`, height: 'auto', cursor: 'pointer' }}
-          onClickHandler={() => tileClickHandler(id)}
+          onClickHandler={() => onTileClick(id)}
         />
     );
 
@@ -70,5 +61,15 @@ class AlbumArtMosaic extends Component {
     );
   }
 }
+
+AlbumArtMosaic.propTypes = {
+  tracks: ImmutablePropTypes.map.isRequired,
+  windowWidth: PropTypes.number.isRequired,
+  onTileClick: PropTypes.func,
+};
+
+AlbumArtMosaic.defaultProps = {
+  windowWidth: 0,
+};
 
 export default AlbumArtMosaic;

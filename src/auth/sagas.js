@@ -2,7 +2,6 @@ import 'isomorphic-fetch';
 import { take } from 'redux-saga/effects';
 
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT } from './actions';
-
 import { redirectToSpotifyLogin } from '../spotifyApiService';
 import { setStoredAuthState, removeStoredAuthState } from '../utils';
 

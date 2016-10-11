@@ -12,7 +12,6 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 
 import { artistsRequest } from './actions';
 import { getArtists, getError, getIsFetching } from './selectors';
-
 import FadeImage from '../shared-components/FadeImage';
 import FadeInTransition from '../shared-components/FadeInTransition';
 import FullscreenLoader from '../shared-components/FullscreenLoader';

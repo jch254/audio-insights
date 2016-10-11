@@ -12,17 +12,12 @@ import FadeImage from '../shared-components/FadeImage';
 import { getAlbumArtUrlForTrack } from '../utils';
 
 class RecommendedTracksList extends Component {
-  static propTypes = {
-    recommendedTracks: ImmutablePropTypes.map.isRequired,
-    trackClickHandler: PropTypes.func,
-  };
-
   shouldComponentUpdate(nextProps) {
     return !Immutable.is(nextProps.recommendedTracks, this.props.recommendedTracks);
   }
 
   render() {
-    const { recommendedTracks, trackClickHandler } = this.props;
+    const { recommendedTracks, onTrackClick } = this.props;
 
     return (
       <Box>
@@ -35,7 +30,7 @@ class RecommendedTracksList extends Component {
                 align="center"
                 my={2}
                 style={{ cursor: 'pointer' }}
-                onClick={() => trackClickHandler(id)}
+                onClick={() => onTrackClick(id)}
               >
                 <FadeImage
                   src={getAlbumArtUrlForTrack(recommendedTrack)}
@@ -66,5 +61,10 @@ class RecommendedTracksList extends Component {
     );
   }
 }
+
+RecommendedTracksList.propTypes = {
+  recommendedTracks: ImmutablePropTypes.map.isRequired,
+  onTrackClick: PropTypes.func,
+};
 
 export default RecommendedTracksList;

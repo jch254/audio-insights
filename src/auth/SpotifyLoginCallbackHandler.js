@@ -2,19 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import { loginSuccess } from './actions';
-
 import FullscreenLoader from '../shared-components/FullscreenLoader';
 
 class SpotifyLoginCallbackHandler extends Component {
-  static propTypes = {
-    location: PropTypes.object.isRequired,
-    dispatch: PropTypes.func.isRequired,
-  };
-
-  static contextTypes = {
-    router: PropTypes.object.isRequired,
-  };
-
   componentWillMount() {
     // TODO: Handle errors and utilise Immutable here
 
@@ -45,5 +35,14 @@ class SpotifyLoginCallbackHandler extends Component {
     );
   }
 }
+
+SpotifyLoginCallbackHandler.propTypes = {
+  location: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
+};
+
+SpotifyLoginCallbackHandler.contextTypes = {
+  router: PropTypes.object.isRequired,
+};
 
 export default connect()(SpotifyLoginCallbackHandler);

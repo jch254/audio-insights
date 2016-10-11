@@ -8,7 +8,6 @@ import {
   artistsFailure,
 } from './actions';
 import { getIsHydrated } from './selectors';
-
 import { selectors as appSelectors } from '../app';
 import { fetchArtists, handleSpotifyApiError } from '../spotifyApiService';
 
@@ -20,6 +19,7 @@ export function* fetchArtistsSaga(idToken) {
       yield put(artistsHydrated());
     } else {
       const currentTerm = yield select(appSelectors.getCurrentTerm);
+
       const { artists } = yield call(fetchArtists, idToken, currentTerm);
 
       if (artists.isEmpty()) {

@@ -3,7 +3,6 @@ import { call, put, select, take } from 'redux-saga/effects';
 
 import { MOSAIC_REQUEST, mosaicHydrated, mosaicSuccess, mosaicFailure } from './actions';
 import { getIsHydrated } from './selectors';
-
 import { selectors as appSelectors } from '../app';
 import {
   fetchTopTracks,
@@ -19,6 +18,7 @@ export function* fetchMosaicSaga(idToken) {
       yield put(mosaicHydrated());
     } else {
       const currentTerm = yield select(appSelectors.getCurrentTerm);
+
       const { tracks } = yield call(fetchTopTracks, idToken, currentTerm);
 
       if (tracks.isEmpty()) {
@@ -26,7 +26,9 @@ export function* fetchMosaicSaga(idToken) {
       }
 
       const trackIds = tracks.keySeq().join();
+
       const { audioFeaturesForTracks } = yield call(fetchAudioFeaturesForTracks, idToken, trackIds);
+
       const tracksWithAudioFeatures = tracks.mergeDeep(audioFeaturesForTracks);
 
       yield put(mosaicSuccess(tracksWithAudioFeatures.sort(() => Math.random())));

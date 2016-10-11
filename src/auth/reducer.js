@@ -6,7 +6,6 @@ import {
   LOGIN_FAILURE,
   LOGOUT,
 } from './actions';
-
 import { getStoredAuthState } from '../utils';
 
 export const initialState = new Map({

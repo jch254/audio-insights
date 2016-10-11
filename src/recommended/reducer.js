@@ -13,7 +13,7 @@ import {
 export const initialState = new Map({
   isFetching: false,
   isCreatingPlaylist: false,
-  playlistCreated: false,
+  isPlaylistCreated: false,
   isHydrated: false,
   recommendedTracks: new Map(),
   targetAttributes: new Map(),
@@ -45,13 +45,13 @@ export default function recommended(state = initialState, action) {
     case CREATE_RECOMMENDED_PLAYLIST_SUCCESS:
       return state.merge({
         isCreatingPlaylist: false,
-        playlistCreated: true,
+        isPlaylistCreated: true,
         error: null,
       });
     case CREATE_RECOMMENDED_PLAYLIST_FAILURE:
       return state.merge({
         isCreatingPlaylist: false,
-        playlistCreated: false,
+        isPlaylistCreated: false,
         error: action.error,
       });
     default:

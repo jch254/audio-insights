@@ -5,7 +5,6 @@ import { Flex } from 'reflexbox';
 
 import { termChange, toggleDropdown } from './actions';
 import { getCurrentTerm, getIsDropdownOpen } from './selectors';
-
 import AppFooter from '../shared-components/AppFooter';
 import Navbar from '../shared-components/Navbar';
 import TrackInfoModal from '../shared-components/TrackInfoModal';
