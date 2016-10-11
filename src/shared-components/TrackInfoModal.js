@@ -26,7 +26,7 @@ import { getAlbumArtUrlForTrack } from '../utils';
 class TrackInfoModal extends Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
-    modalOpen: PropTypes.bool.isRequired,
+    isModalOpen: PropTypes.bool.isRequired,
     windowWidth: PropTypes.number.isRequired,
     selectedTrack: PropTypes.object,
   };
@@ -73,12 +73,12 @@ class TrackInfoModal extends Component {
   mapMode = mode => (mode === 1 ? 'major' : 'minor');
 
   render() {
-    const { modalOpen, selectedTrack, windowWidth } = this.props;
+    const { isModalOpen, selectedTrack, windowWidth } = this.props;
 
     return (
       selectedTrack ?
         <FadeInTransition>
-          <Overlay key="modal" open={modalOpen} onDismiss={this.closeModal} >
+          <Overlay key="modal" open={isModalOpen} onDismiss={this.closeModal} >
             <Panel>
               <PanelHeader>
                 <Text>
@@ -160,7 +160,7 @@ class TrackInfoModal extends Component {
 
 const mapStateToProps = state => (
   {
-    modalOpen: appSelectors.getModalOpen(state),
+    isModalOpen: appSelectors.getIsModalOpen(state),
     selectedTrack: mosaicSelectors.getTrack(state, appSelectors.getSelectedTrackId(state)) ||
       recommendedSelectors.getRecommendedTrack(state, appSelectors.getSelectedTrackId(state)),
   }

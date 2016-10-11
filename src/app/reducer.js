@@ -8,9 +8,9 @@ import {
 } from './actions';
 
 export const initialState = new Map({
-  currentTerm: 'long_term',
-  dropdownOpen: false,
-  modalOpen: false,
+  currentTerm: 'short_term',
+  isDropdownOpen: false,
+  isModalOpen: false,
   selectedTrackId: null,
 });
 
@@ -19,15 +19,15 @@ export default function app(state = initialState, action) {
     case TERM_CHANGE:
       return state.set('currentTerm', action.term);
     case TOGGLE_DROPDOWN:
-      return state.set('dropdownOpen', !state.get('dropdownOpen'));
+      return state.set('isDropdownOpen', !state.get('isDropdownOpen'));
     case OPEN_MODAL:
       return state.merge({
-        modalOpen: true,
+        isModalOpen: true,
         selectedTrackId: action.trackId,
       });
     case CLOSE_MODAL:
       return state.merge({
-        modalOpen: false,
+        isModalOpen: false,
         selectedTrackId: null,
       });
     default:

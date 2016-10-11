@@ -9,7 +9,7 @@ import {
   Arrow,
 } from 'rebass';
 
-const Navbar = ({ idToken, dropdownOpen, toggleDropdown, handleTermChange }) => (
+const Navbar = ({ isLoggedIn, isDropdownOpen, onToggleDropdown, onTermChange }) => (
   <Toolbar backgroundColor="black" >
     <NavItem is="object" color="midgray">
       <IndexLink to="/">
@@ -17,7 +17,7 @@ const Navbar = ({ idToken, dropdownOpen, toggleDropdown, handleTermChange }) => 
       </IndexLink>
     </NavItem>
     {
-      idToken &&
+      isLoggedIn &&
       <NavItem is="object" color="midgray">
         <Link to="/mosaic">
           Mosaic
@@ -25,7 +25,7 @@ const Navbar = ({ idToken, dropdownOpen, toggleDropdown, handleTermChange }) => 
       </NavItem>
     }
     {
-      idToken &&
+      isLoggedIn &&
       <NavItem is="object" color="midgray">
         <Link to="/recommended">
           Recommended
@@ -33,7 +33,7 @@ const Navbar = ({ idToken, dropdownOpen, toggleDropdown, handleTermChange }) => 
       </NavItem>
     }
     {
-      idToken &&
+      isLoggedIn &&
       <NavItem is="object" color="midgray">
         <Link to="/artists">
           Artists
@@ -42,29 +42,29 @@ const Navbar = ({ idToken, dropdownOpen, toggleDropdown, handleTermChange }) => 
     }
     <Space auto />
     {
-      idToken &&
+      isLoggedIn &&
       <Dropdown>
-        <NavItem color="midgray" onClick={() => toggleDropdown()}>
+        <NavItem color="midgray" onClick={() => onToggleDropdown()}>
           Term
           <Arrow />
         </NavItem>
         <DropdownMenu
           right
-          onDismiss={() => toggleDropdown()}
-          open={dropdownOpen}
+          onDismiss={() => onToggleDropdown()}
+          open={isDropdownOpen}
         >
           <NavItem
-            onClick={() => handleTermChange(idToken, 'short_term')}
+            onClick={() => onTermChange('short_term')}
           >
             Short
           </NavItem>
           <NavItem
-            onClick={() => handleTermChange(idToken, 'medium_term')}
+            onClick={() => onTermChange('medium_term')}
           >
             Medium
           </NavItem>
           <NavItem
-            onClick={() => handleTermChange(idToken, 'long_term')}
+            onClick={() => onTermChange('long_term')}
           >
             Long
           </NavItem>
@@ -75,10 +75,10 @@ const Navbar = ({ idToken, dropdownOpen, toggleDropdown, handleTermChange }) => 
 );
 
 Navbar.propTypes = {
-  idToken: PropTypes.string,
-  dropdownOpen: PropTypes.bool.isRequired,
-  toggleDropdown: PropTypes.func.isRequired,
-  handleTermChange: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
+  isDropdownOpen: PropTypes.bool.isRequired,
+  onToggleDropdown: PropTypes.func.isRequired,
+  onTermChange: PropTypes.func.isRequired,
 };
 
 export default Navbar;
