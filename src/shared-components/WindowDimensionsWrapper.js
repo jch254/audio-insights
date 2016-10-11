@@ -1,10 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
 class WindowDimensionsWrapper extends Component {
-  static propTypes = {
-    children: PropTypes.node.isRequired,
-  };
-
   constructor(props) {
     super(props);
 
@@ -29,5 +25,9 @@ class WindowDimensionsWrapper extends Component {
     return (React.cloneElement(this.props.children, { windowWidth: this.state.windowWidth }));
   }
 }
+
+WindowDimensionsWrapper.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default WindowDimensionsWrapper;

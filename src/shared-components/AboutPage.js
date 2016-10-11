@@ -19,7 +19,7 @@ const AboutPage = () => (
           heading="About"
         />
         <Text my={2}>
-          I built this web app teach myself about front-end development with
+          I built this web app teach myself about front-end development with&nbsp;
           <a
             href="https://facebook.github.io/react/"
             target="_blank"
@@ -28,7 +28,7 @@ const AboutPage = () => (
           >
             React
           </a>
-          and
+          &nbsp;and&nbsp;
           <a
             href="http://redux.js.org"
             target="_blank"
@@ -43,7 +43,7 @@ const AboutPage = () => (
           technologies is outstanding. I haven&#39;t had this much fun writing code in a while!
         </Text>
         <Text my={2}>
-          This app connects to the
+          This app connects to the&nbsp;
           <a
             href="https://developer.spotify.com/web-api/"
             target="_blank"
@@ -52,7 +52,7 @@ const AboutPage = () => (
           >
             Spotify API
           </a>
-          using the Implicit Grant Flow to authenticate. I&#39;m a hobby musician
+          &nbsp;using the Implicit Grant Flow to authenticate. I&#39;m a hobby musician
           with a deep interest in music and music production. I thought it&#39;d be an interesting
           project to present the data available from the Spotify API in various ways.
         </Text>
@@ -81,7 +81,7 @@ const AboutPage = () => (
           >
             GitHub
           </a>
-          or
+          &nbsp;or&nbsp;
           <a href="mailto:jordan@jch254.com" style={{ color: '#1c7' }}>
             email
           </a>

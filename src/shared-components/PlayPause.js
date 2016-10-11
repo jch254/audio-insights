@@ -3,10 +3,6 @@ import Icon from 'react-geomicons';
 import { ButtonCircle } from 'rebass';
 
 class PlayPause extends Component {
-  static propTypes = {
-    previewUrl: PropTypes.string.isRequired,
-  };
-
   constructor(props) {
     super(props);
 
@@ -56,5 +52,9 @@ class PlayPause extends Component {
     );
   }
 }
+
+PlayPause.propTypes = {
+  previewUrl: PropTypes.string.isRequired,
+};
 
 export default PlayPause;

@@ -1,40 +1,27 @@
 import { Map } from 'immutable';
 
-export function checkStatus(response) {
-  if (!response.ok) {   // (response.status < 200 || response.status > 300)
-    const error = new Error(response.statusText);
-    error.response = response;
-    throw error;
-  }
-
-  return response;
-}
-
-export function parseJSON(response) {
-  return response.json();
-}
-
-export function getAlbumArtUrlForTrack(track) {
+export const getAlbumArtUrlForTrack = (track) => {
   const lowerResImageUrl = track.getIn(['album', 'images', '1', 'url']);
   const higherResImageUrl = track.getIn(['album', 'images', '0', 'url']);
 
-  return lowerResImageUrl || (higherResImageUrl || 'https://img.jch254.com/Blank.jpg');
-}
+  return lowerResImageUrl || higherResImageUrl || 'https://img.jch254.com/Blank.jpg';
+};
 
-export const ID_TOKEN = 'id_token';
-export const ID_TOKEN_EXPIRY = 'id_token_expiry';
+const ID_TOKEN = 'id_token';
 
-export function setStoredAuthState(idToken, idTokenExpiry) {
+const ID_TOKEN_EXPIRY = 'id_token_expiry';
+
+export const setStoredAuthState = (idToken, idTokenExpiry) => {
   localStorage.setItem(ID_TOKEN, idToken);
   localStorage.setItem(ID_TOKEN_EXPIRY, idTokenExpiry);
-}
+};
 
-export function removeStoredAuthState() {
+export const removeStoredAuthState = () => {
   localStorage.removeItem(ID_TOKEN);
   localStorage.removeItem(ID_TOKEN_EXPIRY);
-}
+};
 
-export function getStoredAuthState() {
+export const getStoredAuthState = () => {
   try {
     const idToken = localStorage.getItem(ID_TOKEN);
     const idTokenExpiry = localStorage.getItem(ID_TOKEN_EXPIRY);
@@ -52,4 +39,4 @@ export function getStoredAuthState() {
 
     return new Map();
   }
-}
+};

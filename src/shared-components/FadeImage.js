@@ -2,12 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { Motion, spring } from 'react-motion';
 
 class FadeImage extends Component {
-  static propTypes = {
-    src: PropTypes.string.isRequired,
-    onClickHandler: PropTypes.func,
-    style: PropTypes.object,
-  };
-
   constructor(props) {
     super(props);
 
@@ -44,5 +38,11 @@ class FadeImage extends Component {
     );
   }
 }
+
+FadeImage.propTypes = {
+  src: PropTypes.string.isRequired,
+  onClickHandler: PropTypes.func,
+  style: PropTypes.object,
+};
 
 export default FadeImage;

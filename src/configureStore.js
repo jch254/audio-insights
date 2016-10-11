@@ -3,6 +3,8 @@ import createSagaMiddleware from 'redux-saga';
 import createLogger from 'redux-logger';
 import { routerMiddleware, routerReducer } from 'react-router-redux';
 import recycleState from 'redux-recycle';
+import Perf from 'react-addons-perf';
+import { Iterable } from 'immutable';
 
 import { reducer as appReducer, actions as appActions } from './app';
 import { reducer as artists } from './artists';
@@ -33,8 +35,26 @@ export default function configureStore(browserHistory, initialState) {
   const middlewares = [sagaMiddleware, routerMiddleware(browserHistory)];
 
   if (process.env.NODE_ENV !== 'production') {
-    const logger = createLogger();
+    // Log Immutable state beautifully
+    const logger = createLogger({
+      stateTransformer: (state) => {
+        const newState = {};
+
+        for (const i of Object.keys(state)) {
+          if (Iterable.isIterable(state[i])) {
+            newState[i] = state[i].toJS();
+          } else {
+            newState[i] = state[i];
+          }
+        }
+
+        return newState;
+      },
+    });
+
     middlewares.push(logger);
+
+    window.Perf = Perf;
   }
 
   const store = createStore(
