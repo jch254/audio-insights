@@ -22,7 +22,7 @@ import {
   getIsFetching,
   getIsPlaylistCreated,
   getRecommendedTracks,
-  getTargetAttributes,
+  getTargetAttributePercentages,
 } from './selectors';
 import FadeInTransition from '../shared-components/FadeInTransition';
 import FullscreenLoader from '../shared-components/FullscreenLoader';
@@ -36,7 +36,7 @@ const RecommendedPage = ({
   isCreatingPlaylist,
   isPlaylistCreated,
   recommendedTracks,
-  targetAttributes,
+  targetAttributePercentages,
   error,
 }) => {
   const onTrackClick = trackId => actions.openModal(trackId);
@@ -93,42 +93,42 @@ const RecommendedPage = ({
                   label="Acousticness"
                   color="green"
                   unit="%"
-                  value={Math.round(targetAttributes.get('acousticness') * 100)}
+                  value={targetAttributePercentages.get('acousticness')}
                 />
                 <Stat
                   m={2}
                   label="Danceability"
                   color="green"
                   unit="%"
-                  value={Math.round(targetAttributes.get('danceability') * 100)}
+                  value={targetAttributePercentages.get('danceability')}
                 />
                 <Stat
                   m={2}
                   label="Energy"
                   color="green"
                   unit="%"
-                  value={Math.round(targetAttributes.get('energy') * 100)}
+                  value={targetAttributePercentages.get('energy')}
                 />
                 <Stat
                   m={2}
                   label="Instrumentalness"
                   color="green"
                   unit="%"
-                  value={Math.round(targetAttributes.get('instrumentalness') * 100)}
+                  value={targetAttributePercentages.get('instrumentalness')}
                 />
                 <Stat
                   m={2}
                   label="Speechiness"
                   color="green"
                   unit="%"
-                  value={Math.round(targetAttributes.get('speechiness') * 100)}
+                  value={targetAttributePercentages.get('speechiness')}
                 />
                 <Stat
                   m={2}
                   label="Valence"
                   color="green"
                   unit="%"
-                  value={Math.round(targetAttributes.get('valence') * 100)}
+                  value={targetAttributePercentages.get('valence')}
                 />
               </Flex>
               <RecommendedTracksList
@@ -145,7 +145,7 @@ RecommendedPage.propTypes = {
   actions: PropTypes.object.isRequired,
   idToken: PropTypes.string.isRequired,
   recommendedTracks: ImmutablePropTypes.map.isRequired,
-  targetAttributes: ImmutablePropTypes.map.isRequired,
+  targetAttributePercentages: ImmutablePropTypes.map.isRequired,
   isFetching: PropTypes.bool.isRequired,
   isCreatingPlaylist: PropTypes.bool.isRequired,
   isPlaylistCreated: PropTypes.bool.isRequired,
@@ -158,7 +158,7 @@ const mapStateToProps = state => (
   {
     idToken: authSelectors.getIdToken(state),
     recommendedTracks: getRecommendedTracks(state),
-    targetAttributes: getTargetAttributes(state),
+    targetAttributePercentages: getTargetAttributePercentages(state),
     isFetching: getIsFetching(state),
     isCreatingPlaylist: getIsCreatingPlaylist(state),
     isPlaylistCreated: getIsPlaylistCreated(state),

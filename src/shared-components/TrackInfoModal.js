@@ -70,7 +70,7 @@ const TrackInfoModal = ({ isModalOpen, selectedTrack, windowWidth, actions }) =>
               <Close onClick={() => actions.closeModal()} />
             </PanelHeader>
             <Flex
-              column={windowWidth <= 480}
+              flexColumn={windowWidth <= 480}
               style={{ marginTop: '-16px', marginRight: '-16px' }}
               align="center"
             >
@@ -83,7 +83,7 @@ const TrackInfoModal = ({ isModalOpen, selectedTrack, windowWidth, actions }) =>
                   marginTop: '16px',
                 }}
               />
-              <Flex mt={2} mr={2} wrap column style={{ width: '300px' }}>
+              <Flex mt={2} mr={2} wrap flexColumn style={{ width: '300px' }}>
                 <Heading color="black" level={3}>
                   {selectedTrack.get('name')}
                 </Heading>
@@ -96,8 +96,8 @@ const TrackInfoModal = ({ isModalOpen, selectedTrack, windowWidth, actions }) =>
                   {selectedTrack.getIn(['album', 'name'])}
                 </Text>
                 <Divider ml={0} width={150} />
-                <Flex column={windowWidth > 480} style={{ marginTop: '-16px' }}>
-                  <Flex column mt={2}>
+                <Flex flexColumn={windowWidth > 480} style={{ marginTop: '-16px' }}>
+                  <Flex flexColumn mt={2}>
                     <Text color="black">
                       {`${Math.round(selectedTrack.get('tempo'))} bpm`}
                     </Text>

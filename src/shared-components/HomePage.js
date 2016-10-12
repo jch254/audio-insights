@@ -12,7 +12,7 @@ import { actions as authActions, selectors as authSelectors } from '../auth';
 
 const HomePage = ({ isLoggedIn, actions }) => (
   <FadeInTransition>
-    <Flex key="home" column align="center" justify="center" style={{ flex: '1 0 auto' }} >
+    <Flex key="home" flexColumn align="center" justify="center" style={{ flex: '1 0 auto' }} >
       <Heading mt={1} style={{ textAlign: 'center' }} level={1} big>
         Audio Insights
       </Heading>
@@ -34,7 +34,7 @@ const HomePage = ({ isLoggedIn, actions }) => (
 
 HomePage.propTypes = {
   actions: PropTypes.object.isRequired,
-  isLoggedIn: PropTypes.string,
+  isLoggedIn: PropTypes.bool,
 };
 
 const mapStateToProps = state => (
