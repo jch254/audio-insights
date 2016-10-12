@@ -1,13 +1,9 @@
-'use strict';
+import path from 'path';
+import webpack from 'webpack';
 
-var path = require('path');
-var webpack = require('webpack');
-
-module.exports = {
-  devtool: 'eval-source-map',
+export default {
   entry: [
     'babel-polyfill',
-    'webpack-hot-middleware/client?reload=true',
     path.join(__dirname, 'src/index.js')
   ],
   output: {
@@ -17,10 +13,15 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        warnings: false,
+        screw_ie8: true
+      }
+    }),
     new webpack.DefinePlugin({
-      'process.env': { 'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development') }
+      'process.env': { 'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production') }
     })
   ],
   resolve: {

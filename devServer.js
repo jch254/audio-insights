@@ -5,7 +5,7 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 import express from 'express';
 import path from 'path';
 import http from 'http';
-import webpackConfig from './webpack.config';
+import webpackConfig from './webpack.config.babel';
 
 const app = express();
 const WEBPACK_PORT = 3001;
