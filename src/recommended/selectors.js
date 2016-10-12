@@ -13,4 +13,5 @@ export const getRecommendedTracks = state => state.recommended.get('recommendedT
 export const getRecommendedTrack = (state, recommendedTrackId) =>
   state.recommended.getIn(['recommendedTracks', recommendedTrackId]);
 
-export const getTargetAttributePercentages = state => state.recommended.get('targetAttributes').map(t => Math.round(t * 100));
+export const getTargetAttributePercentages = state =>
+  state.recommended.get('targetAttributes').map(t => Math.round(t * 100));

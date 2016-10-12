@@ -4,12 +4,12 @@ import webpack from 'webpack';
 export default {
   entry: [
     'babel-polyfill',
-    path.join(__dirname, 'src/index.js')
+    path.join(__dirname, 'src/index.js'),
   ],
   output: {
     path: path.join(__dirname, 'dist/js'),
     filename: 'bundle.js',
-    publicPath: '/js'
+    publicPath: '/js',
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
@@ -17,18 +17,20 @@ export default {
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
         warnings: false,
-        screw_ie8: true
-      }
+        screw_ie8: true,
+      },
     }),
     new webpack.DefinePlugin({
-      'process.env': { 'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production') }
-    })
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'production'),
+      },
+    }),
   ],
   resolve: {
     modulesDirectories: [
       'node_modules',
     ],
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx'],
   },
   module: {
     loaders: [
@@ -40,17 +42,17 @@ export default {
       },
       {
         test: /\.json?$/,
-        loader: 'json'
+        loader: 'json',
       },
       {
         test: /\.css?$/,
         loader: 'style-loader!css-loader?modules',
-        include: /src/
+        include: /src/,
       },
       { test: /\.(jpe?g|png|gif|svg)$/,
         loader: 'url',
-        query: {limit: 10240}
-      }
-    ]
-  }
+        query: { limit: 10240 },
+      },
+    ],
+  },
 };
