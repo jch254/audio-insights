@@ -1,4 +1,4 @@
-# [Audio Insights (Live Demo)](https://ai.603.nu)
+# [Audio Insights (Live Demo)](https://audio-insights.603.nu)
 
 [Bitbucket Pipelines status](https://bitbucket.org/jch254/audio-insights/addon/pipelines/home)
 
