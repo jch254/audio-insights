@@ -17,11 +17,11 @@ if (process.env.NODE_ENV === 'production') {
   ga.initialize(process.env.GA_ID);
 }
 
-function logPageView() {
+const logPageView = () => {
   if (process.env.NODE_ENV === 'production') {
     ga.pageview(window.location.pathname);
   }
-}
+};
 
 ReactDOM.render(
   <Provider store={store}>

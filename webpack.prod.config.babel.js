@@ -33,6 +33,15 @@ export default {
     extensions: ['', '.js', '.jsx'],
   },
   module: {
+    preLoaders: [
+      {
+        test: /\.js$/,
+        loader: 'eslint-loader',
+        exclude: /(node_modules)/,
+        include: __dirname,
+        query: { quiet: true, failOnError: true },
+      },
+    ],
     loaders: [
       {
         test: /\.js$/,

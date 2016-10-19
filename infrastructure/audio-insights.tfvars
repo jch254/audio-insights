@@ -2,4 +2,4 @@
 region = "ap-southeast-2"
 
 # DNS name
-dns_name = "ai.603.nu"
+dns_name = "audio-insights.603.nu"
