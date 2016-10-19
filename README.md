@@ -66,6 +66,6 @@ npm install
 npm run build
 ```
 
-### Deployment/Infrastructure
+## Deployment/Infrastructure
 
 Refer to the [/infrastructure](https://github.com/jch254/audio-insights/tree/master/infrastructure) directory.
