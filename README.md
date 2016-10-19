@@ -68,4 +68,4 @@ npm run build
 
 ## Deployment/Infrastructure
 
-Refer to the [/infrastructure](https://github.com/jch254/audio-insights/tree/master/infrastructure) directory.
+Refer to the [/infrastructure](../master/infrastructure) directory.
