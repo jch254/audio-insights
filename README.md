@@ -42,9 +42,9 @@ acquired building this app on future projects.
 * [Webpack](https://github.com/webpack/webpack)
 * [Node.js](https://github.com/nodejs/node)
 
-**SPOTIFY_CLIENT_ID, SPOTIFY_SCOPES and SPOTIFY_CALLBACK_URI environment variable must be set before `npm run` commands below.**
+**SPOTIFY_CLIENT_ID, SPOTIFY_SCOPES and SPOTIFY_CALLBACK_URI environment variable must be set before `yarn run` commands below.**
 
-E.g. `SPOTIFY_CLIENT_ID=YOUR_CLIENT_ID SPOTIFY_SCOPES="user-top-read playlist-modify-private" SPOTIFY_CALLBACK_URI="http://localhost:3001/spotifylogincallback" npm run dev`
+E.g. `SPOTIFY_CLIENT_ID=YOUR_CLIENT_ID SPOTIFY_SCOPES="user-top-read playlist-modify-private" SPOTIFY_CALLBACK_URI="http://localhost:3001/spotifylogincallback" yarn run dev`
 
 ## Running locally
 
@@ -53,8 +53,8 @@ E.g. `SPOTIFY_CLIENT_ID=YOUR_CLIENT_ID SPOTIFY_SCOPES="user-top-read playlist-mo
 1. Run the following commands in the app's root directory then open http://localhost:3001
 
 ```
-npm install
-npm run dev
+yarn install
+yarn run dev
 ```
 
 ## Building the production version
@@ -62,8 +62,8 @@ npm run dev
 1. Run the following commands in the app's root directory then check the /dist folder
 
 ```
-npm install
-npm run build
+yarn install
+yarn run build
 ```
 
 ## Deployment/Infrastructure
