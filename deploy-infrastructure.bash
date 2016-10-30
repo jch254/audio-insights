@@ -1,3 +1,5 @@
+#!/bin/bash -ex
+
 cd infrastructure
 terraform remote config -backend=s3 \
   -backend-config="bucket=603-terraform-remote-state" \

@@ -1,3 +1,5 @@
+#!/bin/bash -ex
+
 S3_BUCKET_ID=$(cd infrastructure && terraform output s3_bucket_id)
 CLOUDFRONT_DISTRIBUTION_ID=$(cd infrastructure && terraform output cloudfront_distribution_id)
 
