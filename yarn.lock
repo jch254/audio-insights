@@ -833,10 +833,6 @@ Base64@~0.2.0:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/Base64/-/Base64-0.2.1.tgz#ba3a4230708e186705065e66babdd4c35cf60028"
 
-batch-processor@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/batch-processor/-/batch-processor-1.0.0.tgz#75c95c32b748e0850d10c2b168f6bdbe9891ace8"
-
 bcrypt-pbkdf@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/bcrypt-pbkdf/-/bcrypt-pbkdf-1.0.0.tgz#3ca76b85241c7170bf7d9703e7b9aa74630040d4"
@@ -1380,12 +1376,6 @@ ecc-jsbn@~0.1.1:
 ee-first@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
-
-element-resize-detector@^1.1.5:
-  version "1.1.9"
-  resolved "https://registry.yarnpkg.com/element-resize-detector/-/element-resize-detector-1.1.9.tgz#2304f5753165625eed17a7e953e25687e3b1d322"
-  dependencies:
-    batch-processor "^1.0.0"
 
 emojis-list@^2.0.0:
   version "2.1.0"
@@ -3312,21 +3302,14 @@ react-loading@0.0.9:
   version "0.0.9"
   resolved "https://registry.yarnpkg.com/react-loading/-/react-loading-0.0.9.tgz#e9fba6948915ba7742a508193828b6c73eb04956"
 
-react-measure@^0.4.0:
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/react-measure/-/react-measure-0.4.2.tgz#3cfa8ff7314ea0fb5fb8f137b1e4fc6c81701d9b"
-  dependencies:
-    element-resize-detector "^1.1.5"
-
-react-motion-ui-pack@^0.9.0:
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/react-motion-ui-pack/-/react-motion-ui-pack-0.9.0.tgz#dccec99fc9a8e4f8ebf33b1e0d0c4adf0a7aa889"
+react-motion-ui-pack@^0.10.2:
+  version "0.10.2"
+  resolved "https://registry.yarnpkg.com/react-motion-ui-pack/-/react-motion-ui-pack-0.10.2.tgz#adcf3c4fe280eded93cee04669c60b390d5416a7"
   dependencies:
     get-prefix "^1.0.0"
-    react-measure "^0.4.0"
-    react-motion "^0.4.4"
+    react-motion "^0.4.5"
 
-react-motion@^0.4.3, react-motion@^0.4.4:
+react-motion@^0.4.3, react-motion@^0.4.5:
   version "0.4.5"
   resolved "https://registry.yarnpkg.com/react-motion/-/react-motion-0.4.5.tgz#ecc42f692fec9b2de4c92f85e26375071f779b76"
   dependencies:
@@ -3354,7 +3337,7 @@ react-router-scroll@^0.3.2:
     scroll-behavior "^0.8.0"
     warning "^3.0.0"
 
-react-router@^2.0.1:
+react-router@^2.3.0:
   version "2.8.1"
   resolved "https://registry.yarnpkg.com/react-router/-/react-router-2.8.1.tgz#73e9491f6ceb316d0f779829081863e378ee4ed7"
   dependencies:

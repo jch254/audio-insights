@@ -7,13 +7,7 @@ import FullscreenLoader from '../shared-components/FullscreenLoader';
 import { loginRequest } from './actions';
 import { getIdToken } from './selectors';
 
-const RestrictedPage = ({ children, idToken }) => {
-  if (idToken) {
-    return children;
-  }
-
-  return <FullscreenLoader delay={0} />;
-};
+const RestrictedPage = ({ children, idToken }) => (idToken ? children : <FullscreenLoader delay={0} />);
 
 RestrictedPage.propTypes = {
   children: PropTypes.node.isRequired,

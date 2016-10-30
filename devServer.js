@@ -33,7 +33,7 @@ app.listen(WEBPACK_PORT, 'localhost', (err) => {
     console.log(err);
   }
 
-  console.log(`WebpackDevServer listening at localhost: ${WEBPACK_PORT}`);
+  console.log(`WebpackDevServer listening at localhost:${WEBPACK_PORT}`);
 });
 
 http.createServer(app);
