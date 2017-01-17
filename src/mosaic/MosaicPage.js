@@ -23,19 +23,19 @@ const MosaicPage = ({ isFetching, tracks, error, actions }) => {
   return (
     isFetching ?
       <FullscreenLoader /> :
-        <FadeInTransition>
-          <Box key="mosaic" style={{ flex: '1 0 auto' }} >
-            {
-              error &&
-              <Message theme="error">
-                { `Error: ${JSON.stringify(error)}` }
-              </Message>
-            }
-            <WindowDimensionsWrapper>
-              <AlbumArtMosaic tracks={tracks} onTileClick={onTileClick} />
-            </WindowDimensionsWrapper>
-          </Box>
-        </FadeInTransition>
+      <FadeInTransition>
+        <Box key="mosaic" style={{ flex: '1 0 auto' }} >
+          {
+            error &&
+            <Message theme="error">
+              { `Error: ${JSON.stringify(error)}` }
+            </Message>
+          }
+          <WindowDimensionsWrapper>
+            <AlbumArtMosaic tracks={tracks} onTileClick={onTileClick} />
+          </WindowDimensionsWrapper>
+        </Box>
+      </FadeInTransition>
   );
 };
 

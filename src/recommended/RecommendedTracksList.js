@@ -54,7 +54,7 @@ class RecommendedTracksList extends Component {
                   </Text>
                 </Box>
                 <Space auto />
-              </Flex>
+              </Flex>,
           )
         }
       </Box>

@@ -14,12 +14,15 @@ class SpotifyLoginCallbackHandler extends Component {
     if (!location.hash) {
       router.push('/');
     } else {
-      const hashParams = {};
       const hashArray = location.hash.substring(1).split('&');
-      for (const i of hashArray) {
-        const keyValPair = i.split('=');
-        hashParams[keyValPair[0]] = keyValPair[1];
-      }
+      const hashParams = hashArray.reduce((result, item) => {
+        const res = result;
+        const keyValPair = item.split('=');
+
+        res[keyValPair[0]] = keyValPair[1];
+
+        return res;
+      }, {});
 
       // expires_in is in seconds so convert to milliseconds to calculate token expiry
       const idTokenExpiryMilliseconds = Date.now() + (hashParams.expires_in * 1000);

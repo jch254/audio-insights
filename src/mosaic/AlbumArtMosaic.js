@@ -44,7 +44,7 @@ class AlbumArtMosaic extends Component {
           src={getAlbumArtUrlForTrack(track)}
           style={{ width: `${columnWidth}%`, height: 'auto', cursor: 'pointer' }}
           onClickHandler={() => onTileClick(id)}
-        />
+        />,
     );
 
     return (

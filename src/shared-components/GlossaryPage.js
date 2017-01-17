@@ -29,7 +29,7 @@ const GlossaryPage = () => (
               <Text mb={2}>
                 {g.definition}
               </Text>
-            </Box>
+            </Box>,
           )
         }
       </Container>

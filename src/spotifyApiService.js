@@ -57,7 +57,7 @@ export const fetchAudioFeaturesForTracks = (idToken, trackIds) =>
     .then(checkStatus)
     .then(json => ({
       audioFeaturesForTracks: new Map(
-        json.audio_features.map(audioFeature => [audioFeature.id, Immutable.fromJS(audioFeature)])
+        json.audio_features.map(audioFeature => [audioFeature.id, Immutable.fromJS(audioFeature)]),
       ),
     }))
     .catch(error => Promise.reject(error));
@@ -75,7 +75,7 @@ target_valence=${targetAttributes.get('valence')}`, getFetchInit(idToken, 'GET')
     .then(checkStatus)
     .then(json => ({
       recommendedTracks: new Map(
-        json.tracks.map(track => [track.id, Immutable.fromJS(track)])
+        json.tracks.map(track => [track.id, Immutable.fromJS(track)]),
       ),
     }))
     .catch(error => Promise.reject(error));
@@ -99,7 +99,7 @@ export const createPrivatePlaylist = (idToken, userId, playlistName) => {
 export const addTracksToPlaylist = (idToken, userId, playlistId, trackUris) =>
   fetch(
       `${baseUrl}/v1/users/${userId}/playlists/${playlistId}/tracks?uris=${trackUris}`,
-      getFetchInit(idToken, 'POST')
+      getFetchInit(idToken, 'POST'),
     )
     .then(checkStatus)
     .then(json => ({ playlist: Immutable.fromJS(json) }))

@@ -108,7 +108,11 @@ export function* createRecommendedPlaylistSaga(idToken) {
       yield call(createPrivatePlaylist, idToken, userProfile.get('id'), playlistName);
 
     yield call(
-      addTracksToPlaylist, idToken, userProfile.get('id'), playlist.get('id'), recommendedTrackUris
+      addTracksToPlaylist,
+      idToken,
+      userProfile.get('id'),
+      playlist.get('id'),
+      recommendedTrackUris,
     );
 
     yield put(createRecommendedPlaylistSuccess());

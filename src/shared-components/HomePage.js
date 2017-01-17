@@ -24,9 +24,9 @@ const HomePage = ({ isLoggedIn, actions }) => (
           <Button my={3} big pill onClick={() => actions.loginRequest('mosaic')} backgroundColor="green">
             Login with Spotify
           </Button> :
-            <Button my={3} big pill onClick={() => actions.logout()} backgroundColor="red">
-              Logout
-            </Button>
+          <Button my={3} big pill onClick={() => actions.logout()} backgroundColor="red">
+            Logout
+          </Button>
       }
     </Flex>
   </FadeInTransition>

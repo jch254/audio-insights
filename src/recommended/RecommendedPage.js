@@ -44,100 +44,100 @@ const RecommendedPage = ({
   return (
     isFetching ?
       <FullscreenLoader /> :
-        <FadeInTransition>
-          <Box key="recommended" style={{ flex: '1 0 auto' }}>
-            <Overlay key="loading" open={isCreatingPlaylist}>
-              <FullscreenLoader delay={0} />
-            </Overlay>
-            <Container pb={2}>
-              <PageHeader
-                my={2}
-                py={2}
-                description="Based on features of your top tracks"
-                heading="Recommended"
-              >
-                {
-                  isPlaylistCreated ?
-                    !error &&
-                    <ButtonOutline
-                      mt={2}
-                      pill
-                      big
-                      color="green"
-                      style={{ cursor: 'default' }}
-                    >
-                      Playlist saved to Spotify
-                    </ButtonOutline> :
-                    !error &&
-                    <Button
-                      mt={2}
-                      pill
-                      big
-                      onClick={() => actions.createRecommendedPlaylistRequest(idToken)}
-                      backgroundColor="green"
-                    >
-                      Save playlist to Spotify
-                    </Button>
-
-                }
-              </PageHeader>
+      <FadeInTransition>
+        <Box key="recommended" style={{ flex: '1 0 auto' }}>
+          <Overlay key="loading" open={isCreatingPlaylist}>
+            <FullscreenLoader delay={0} />
+          </Overlay>
+          <Container pb={2}>
+            <PageHeader
+              my={2}
+              py={2}
+              description="Based on features of your top tracks"
+              heading="Recommended"
+            >
               {
-                error &&
-                <Message theme="error">
-                  { `Error: ${JSON.stringify(error)}` }
-                </Message>
+                isPlaylistCreated ?
+                  !error &&
+                  <ButtonOutline
+                    mt={2}
+                    pill
+                    big
+                    color="green"
+                    style={{ cursor: 'default' }}
+                  >
+                    Playlist saved to Spotify
+                  </ButtonOutline> :
+                  !error &&
+                  <Button
+                    mt={2}
+                    pill
+                    big
+                    onClick={() => actions.createRecommendedPlaylistRequest(idToken)}
+                    backgroundColor="green"
+                  >
+                    Save playlist to Spotify
+                  </Button>
+
               }
-              <Flex wrap justify="space-between" pb={2} gutter={2} align="center">
-                <Stat
-                  m={2}
-                  label="Acousticness"
-                  color="green"
-                  unit="%"
-                  value={targetAttributePercentages.get('acousticness')}
-                />
-                <Stat
-                  m={2}
-                  label="Danceability"
-                  color="green"
-                  unit="%"
-                  value={targetAttributePercentages.get('danceability')}
-                />
-                <Stat
-                  m={2}
-                  label="Energy"
-                  color="green"
-                  unit="%"
-                  value={targetAttributePercentages.get('energy')}
-                />
-                <Stat
-                  m={2}
-                  label="Instrumentalness"
-                  color="green"
-                  unit="%"
-                  value={targetAttributePercentages.get('instrumentalness')}
-                />
-                <Stat
-                  m={2}
-                  label="Speechiness"
-                  color="green"
-                  unit="%"
-                  value={targetAttributePercentages.get('speechiness')}
-                />
-                <Stat
-                  m={2}
-                  label="Valence"
-                  color="green"
-                  unit="%"
-                  value={targetAttributePercentages.get('valence')}
-                />
-              </Flex>
-              <RecommendedTracksList
-                recommendedTracks={recommendedTracks}
-                onTrackClick={onTrackClick}
+            </PageHeader>
+            {
+              error &&
+              <Message theme="error">
+                { `Error: ${JSON.stringify(error)}` }
+              </Message>
+            }
+            <Flex wrap justify="space-between" pb={2} gutter={2} align="center">
+              <Stat
+                m={2}
+                label="Acousticness"
+                color="green"
+                unit="%"
+                value={targetAttributePercentages.get('acousticness')}
               />
-            </Container>
-          </Box>
-        </FadeInTransition>
+              <Stat
+                m={2}
+                label="Danceability"
+                color="green"
+                unit="%"
+                value={targetAttributePercentages.get('danceability')}
+              />
+              <Stat
+                m={2}
+                label="Energy"
+                color="green"
+                unit="%"
+                value={targetAttributePercentages.get('energy')}
+              />
+              <Stat
+                m={2}
+                label="Instrumentalness"
+                color="green"
+                unit="%"
+                value={targetAttributePercentages.get('instrumentalness')}
+              />
+              <Stat
+                m={2}
+                label="Speechiness"
+                color="green"
+                unit="%"
+                value={targetAttributePercentages.get('speechiness')}
+              />
+              <Stat
+                m={2}
+                label="Valence"
+                color="green"
+                unit="%"
+                value={targetAttributePercentages.get('valence')}
+              />
+            </Flex>
+            <RecommendedTracksList
+              recommendedTracks={recommendedTracks}
+              onTrackClick={onTrackClick}
+            />
+          </Container>
+        </Box>
+      </FadeInTransition>
   );
 };
 
@@ -168,8 +168,9 @@ const mapStateToProps = state => (
 
 const mapDispatchToProps = dispatch => (
   {
-    actions: bindActionCreators({
-      recommendedTracksRequest, createRecommendedPlaylistRequest, ...appActions }, dispatch
+    actions: bindActionCreators(
+      { recommendedTracksRequest, createRecommendedPlaylistRequest, ...appActions },
+      dispatch,
     ),
   }
 );

@@ -68,7 +68,8 @@ const mapStateToProps = state => (
 const mapDispatchToProps = dispatch => (
   {
     actions: bindActionCreators(
-      { termChange, toggleDropdown, ...mosaicActions, ...artistsActions, ...recommendedActions }, dispatch
+      { termChange, toggleDropdown, ...mosaicActions, ...artistsActions, ...recommendedActions },
+      dispatch,
     ),
   }
 );
