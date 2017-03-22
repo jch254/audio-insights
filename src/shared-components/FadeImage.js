@@ -24,7 +24,7 @@ class FadeImage extends Component {
       >
         { interpolatedStyle =>
           <img
-            role="presentation"
+            alt="Fade"
             src={src}
             style={{
               ...style,
@@ -43,6 +43,11 @@ FadeImage.propTypes = {
   src: PropTypes.string.isRequired,
   onClickHandler: PropTypes.func,
   style: PropTypes.object,
+};
+
+FadeImage.defaultProps = {
+  onClickHandler: null,
+  style: null,
 };
 
 export default FadeImage;

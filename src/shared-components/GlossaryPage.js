@@ -21,8 +21,8 @@ const GlossaryPage = () => (
           heading="Glossary"
         />
         {
-          glossary.sort((a, b) => a.title.localeCompare(b.title)).map((g, index) =>
-            <Box key={index} mb={2}>
+          glossary.sort((a, b) => a.title.localeCompare(b.title)).map(g =>
+            <Box key={g.title} mb={2}>
               <Heading level={3}>
                 {g.title}
               </Heading>

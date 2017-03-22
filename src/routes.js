@@ -13,7 +13,15 @@ import MosaicPage from './mosaic/MosaicPage';
 import RecommendedPage from './recommended/RecommendedPage';
 
 export default (
-  <Route path="/" component={App}>
+  <Route
+    path="/"
+    component={App}
+    onChange={(prevState, nextState) => {
+      if (nextState.location.action !== 'POP') {
+        window.scrollTo(0, 0);
+      }
+    }}
+  >
     <IndexRoute component={HomePage} />
     <Route path="/about" component={AboutPage} />
     <Route path="/glossary" component={GlossaryPage} />

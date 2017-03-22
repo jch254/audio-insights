@@ -69,6 +69,10 @@ AlbumArtMosaic.propTypes = {
 };
 
 AlbumArtMosaic.defaultProps = {
+  onTileClick: null,
+};
+
+AlbumArtMosaic.defaultProps = {
   windowWidth: 0,
 };
 

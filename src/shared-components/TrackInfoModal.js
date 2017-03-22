@@ -148,6 +148,7 @@ TrackInfoModal.propTypes = {
 
 TrackInfoModal.defaultProps = {
   windowWidth: 0,
+  selectedTrack: null,
 };
 
 const mapStateToProps = state => (

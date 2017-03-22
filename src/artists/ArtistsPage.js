@@ -77,6 +77,10 @@ ArtistsPage.propTypes = {
   actions: PropTypes.object.isRequired,
 };
 
+ArtistsPage.defaultProps = {
+  error: null,
+};
+
 const mapStateToProps = state => (
   {
     idToken: authSelectors.getIdToken(state),

@@ -37,6 +37,10 @@ HomePage.propTypes = {
   isLoggedIn: PropTypes.bool,
 };
 
+HomePage.defaultProps = {
+  isLoggedIn: false,
+};
+
 const mapStateToProps = state => (
   {
     isLoggedIn: authSelectors.getIsLoggedIn(state),

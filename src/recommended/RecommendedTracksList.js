@@ -67,4 +67,8 @@ RecommendedTracksList.propTypes = {
   onTrackClick: PropTypes.func,
 };
 
+RecommendedTracksList.defaultProps = {
+  onTrackClick: null,
+};
+
 export default RecommendedTracksList;

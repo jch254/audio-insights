@@ -12,4 +12,8 @@ FullscreenLoader.propTypes = {
   delay: PropTypes.number,
 };
 
+FullscreenLoader.defaultProps = {
+  delay: null,
+};
+
 export default FullscreenLoader;

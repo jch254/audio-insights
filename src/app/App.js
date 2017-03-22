@@ -57,6 +57,10 @@ App.propTypes = {
   actions: PropTypes.object.isRequired,
 };
 
+App.defaultProps = {
+  idToken: null,
+};
+
 const mapStateToProps = state => (
   {
     currentTerm: getCurrentTerm(state),

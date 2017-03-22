@@ -152,6 +152,10 @@ RecommendedPage.propTypes = {
   error: PropTypes.object,
 };
 
+RecommendedPage.defaultProps = {
+  error: null,
+};
+
 RecommendedPage.componentDidMount = ({ actions, idToken }) => actions.recommendedTracksRequest(idToken);
 
 const mapStateToProps = state => (

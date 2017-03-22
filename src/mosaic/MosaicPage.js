@@ -46,6 +46,10 @@ MosaicPage.propTypes = {
   error: PropTypes.object,
 };
 
+MosaicPage.defaultProps = {
+  error: null,
+};
+
 MosaicPage.componentDidMount = ({ actions, idToken }) => actions.mosaicRequest(idToken);
 
 const mapStateToProps = state => (
