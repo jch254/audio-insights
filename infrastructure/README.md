@@ -1,8 +1,8 @@
 # Deployment/Infrastructure
 
-Audio Insights is deployed to AWS on S3. CloudFront is used as a CDN. Route 53 is used for DNS.
+This project is built, tested and deployed to AWS by [codebuild-github-webhook](https://github.com/jch254/codebuild-github-webhook) and CodeBuild. Artifacts are served from S3. CloudFront is used as a CDN. Route 53 is used for DNS.
 
---
+---
 
 ### Deployment Prerequisites
 
@@ -15,21 +15,49 @@ To deploy to AWS, you must:
    1. Set your credentials as the environment variables `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`.
    1. Run `aws configure` and fill in the details it asks for.
    1. Run on an EC2 instance with an IAM Role.
+   1. Run via CodeBuild or ECS Task with an IAM Role (see [buildspec-test.yml](../buildspec-test.yml) for workaround)
 
-#### Deploying Audio Insights infrastructure
+#### Deploying infrastructure
 
-1. `terraform init`
-1. `terraform plan -var-file audio-insights.tfvars`
-1. `terraform apply -var-file audio-insights-2.tfvars`
+1. Update and export all environment variables specified in the appropriate buildspec declaration (check all phases) and bash scripts
+1. Initialise Terraform:
+```
+terraform init \
+  -backend-config 'bucket=YOUR_S3_BUCKET' \
+  -backend-config 'key=YOUR_S3_KEY' \
+  -backend-config 'region=YOUR_REGION' \
+  -get=true \
+  -upgrade=true
+```
+1. `terraform plan -out main.tfplan`
+1. `terraform apply main.tfplan`
 
-#### Updating Audio Insights infrastructure
+#### Updating infrastructure
 
+1. Update and export all environment variables specified in the appropriate buildspec declaration (check all phases) and bash scripts
 1. Make necessary infrastructure code changes.
-1. `terraform init`
-1. `terraform plan -var-file audio-insights.tfvars`
-1. `terraform apply -var-file audio-insights-2.tfvars`
+1. Initialise Terraform:
+```
+terraform init \
+  -backend-config 'bucket=YOUR_S3_BUCKET' \
+  -backend-config 'key=YOUR_S3_KEY' \
+  -backend-config 'region=YOUR_REGION' \
+  -get=true \
+  -upgrade=true
+```
+1. `terraform plan -out main.tfplan`
+1. `terraform apply main.tfplan`
 
-#### Destroying Audio Insights infrastructure (use with care)
+#### Destroying infrastructure (use with care)
 
-1. `terraform init`
-1. `terraform plan -var-file audio-insights.tfvars`
+1. Update and export all environment variables specified in the appropriate buildspec declaration (check all phases) and bash scripts
+1. Initialise Terraform:
+```
+terraform init \
+  -backend-config 'bucket=YOUR_S3_BUCKET' \
+  -backend-config 'key=YOUR_S3_KEY' \
+  -backend-config 'region=YOUR_REGION' \
+  -get=true \
+  -upgrade=true
+```
+1. `terraform destroy`

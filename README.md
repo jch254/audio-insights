@@ -1,7 +1,5 @@
 # [Audio Insights (Live Demo)](https://audio-insights.603.nu)
 
-[Bitbucket Pipelines status](https://bitbucket.org/jch254/audio-insights/addon/pipelines/home)
-
 I built this web app teach myself about front-end development with
 [React](https://facebook.github.io/react/) and [Redux](http://redux.js.org).
 For a long while I've yearned for an enjoyable, fast and understandable way to create
@@ -17,12 +15,8 @@ various ways.
 I aimed to keep things simple, avoid reinventing the wheel and embrace essentialism (use as little
 as possible). Using a component library ([Rebass](http://jxnblk.com/rebass/)) proved invaluable. I
 was able to concentrate on 'business logic' yet still create something presentable. I also focused
-on using React and Redux best practices and making the app as responsive as possible. This project was written with a functional mindset with help from Immutable.js and Reselect for efficient client-side data manipulation.
-
-This project is deployed to AWS on S3, CloudFront is used as a CDN and Route 53 is used for DNS. All infrastructure is defined as code in the [/infrastructure](../master/infrastructure) directory. Manual steps suck so this project uses Bitbucket Pipelines to automate the build and deployment to AWS - see [bitbucket-pipelines.yml](../master/bitbucket-pipelines.yml). AWS credentials are set in this file to take advantage of [Bitbucket Pipelines environment variables](https://confluence.atlassian.com/bitbucket/environment-variables-in-bitbucket-pipelines-794502608.html).
-
-I'd be thankful for any feedback or suggestions. I look forward to applying the skills I've
-acquired building this app on future projects.
+on using React and Redux best practices and making the app as responsive as possible.
+This project was written with a functional mindset with help from Immutable.js and Reselect for efficient client-side data manipulation.
 
 ![Mosaic](https://img.jch254.com/Mosaic.png)
 

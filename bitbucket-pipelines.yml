@@ -1,9 +1,0 @@
-image: jch254/docker-node-terraform-aws:latest
-pipelines:
-  branches:
-    master:
-      - step:
-          script:
-            - ./build-artifacts.bash
-            - ./deploy-infrastructure.bash
-            - ./upload-artifacts.bash

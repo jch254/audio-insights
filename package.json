@@ -5,8 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "babel-node devServer.js",
-    "build": "webpack --config ./webpack.prod.config.babel.js --progress --profile --colors",
-    "lint": "eslint . || exit 0"
+    "build": "cross-env NODE_ENV=production webpack --config ./webpack.prod.config.babel.js --progress --profile --colors",
+    "lint": "eslint src || exit 0"
   },
   "repository": {
     "type": "git",
@@ -48,6 +48,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-latest": "^6.24.0",
     "babel-preset-react": "^6.23.0",
+    "cross-env": "^5.0.5",
     "css-loader": "^0.27.3",
     "eslint": "^3.18.0",
     "eslint-config-airbnb": "14.1.0",

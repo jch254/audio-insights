@@ -43,7 +43,7 @@ class PlayPause extends Component {
           style={{ marginLeft: this.state.playing ? '0px' : '4px' }}
         />
         <audio
-          ref={component => (this.preview = component)}
+          ref={(component) => { this.preview = component; }}
           src={this.props.previewUrl}
           type="audio/mpeg"
           onEnded={this.previewEnded}
