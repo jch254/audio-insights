@@ -18,6 +18,7 @@ env:
     SPOTIFY_CALLBACK_URI: "https://audio-insights.603.nu/spotifylogincallback"
     REMOTE_STATE_BUCKET: "603-terraform-remote-state"
   parameter-store:
+    SPOTIFY_CLIENT_ID: "/audio-insights/spotify-client-id"
     GA_ID: "/audio-insights/ga-id"
 
 phases:
