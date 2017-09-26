@@ -1,4 +1,4 @@
-# [Audio Insights](https://audio-insights.603.nu)
+# [Audio Insights](https://audio-insights.603.nz)
 
 I built this web app teach myself about front-end development with
 [React](https://facebook.github.io/react/) and [Redux](http://redux.js.org).
