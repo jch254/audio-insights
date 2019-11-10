@@ -23,6 +23,8 @@ import { selectors as mosaicSelectors } from '../mosaic';
 import { selectors as recommendedSelectors } from '../recommended';
 import { getAlbumArtUrlForTrack } from '../utils';
 
+const styles = require('./FadeInTransition.css');
+
 const TrackInfoModal = ({ isModalOpen, selectedTrack, windowWidth, actions }) => {
   const mapPitchClassToKey = (pitchClass) => {
     switch (pitchClass) {
@@ -60,7 +62,7 @@ const TrackInfoModal = ({ isModalOpen, selectedTrack, windowWidth, actions }) =>
   return (
     selectedTrack ?
       <FadeInTransition>
-        <Overlay key="modal" open={isModalOpen} onDismiss={() => actions.closeModal()} >
+        <Overlay key="modal" open={isModalOpen} onDismiss={() => actions.closeModal()} className={styles.overflowHidden}>
           <Panel>
             <PanelHeader>
               <Text>
