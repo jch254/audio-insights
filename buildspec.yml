@@ -39,9 +39,11 @@ phases:
       - ./infrastructure/deploy-infrastructure.bash
       - echo Building application bundle...
       - pnpm run build
+      - touch .build-success
 
   post_build:
     commands:
+      - test -f .build-success || { echo "Skipping artifact deploy because build failed"; exit 0; }
       - echo Publishing build artifacts...
       - ./infrastructure/deploy-artifacts.bash
 

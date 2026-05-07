@@ -14,18 +14,42 @@ importers:
       core-js:
         specifier: ^3.47.0
         version: 3.49.0
+      create-react-class:
+        specifier: ^15.7.0
+        version: 15.7.0
+      deep-diff:
+        specifier: ^1.0.2
+        version: 1.0.2
+      history:
+        specifier: '3'
+        version: 3.3.0
+      hoist-non-react-statics:
+        specifier: ^3.3.2
+        version: 3.3.2
       immutable:
         specifier: ^3.8.1
         version: 3.8.3
+      invariant:
+        specifier: ^2.2.4
+        version: 2.2.4
       isomorphic-fetch:
         specifier: ^2.2.1
         version: 2.2.1
+      lodash-es:
+        specifier: ^4.18.1
+        version: 4.18.1
       moment:
         specifier: ^2.30.1
         version: 2.30.1
+      performance-now:
+        specifier: ^2.1.0
+        version: 2.1.0
       prop-types:
         specifier: ^15.8.1
         version: 15.8.1
+      raf:
+        specifier: ^3.4.1
+        version: 3.4.1
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -74,6 +98,15 @@ importers:
       scheduler:
         specifier: ^0.23.2
         version: 0.23.2
+      symbol-observable:
+        specifier: ^4.0.0
+        version: 4.0.0
+      warning:
+        specifier: ^4.0.3
+        version: 4.0.3
+      whatwg-fetch:
+        specifier: ^3.6.20
+        version: 3.6.20
     devDependencies:
       '@babel/core':
         specifier: ^7.28.5
@@ -1561,6 +1594,10 @@ packages:
 
   deep-diff@0.3.4:
     resolution: {integrity: sha512-Q2QODPwxBnMRbT8tUw1afL8PRY4mbMlJDU6HnLnDBNl/sAatNDG5vyk1pRt2bv3i60OY7X9ETXrH80SWX939EA==}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+
+  deep-diff@1.0.2:
+    resolution: {integrity: sha512-aWS3UIVH+NPGCD1kki+DCU9Dua032iSsO43LqQpcs4R3+dVv7tX0qBGjiVHJHjplsoUM2XRO/KB92glqc68awg==}
     deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   deep-is@0.1.4:
@@ -3075,6 +3112,10 @@ packages:
     resolution: {integrity: sha512-e900nM8RRtGhlV36KGEU9k65K3mPb1WV70OdjfxlG2EAuM1noi/E/BaW/uMhL7bPEssK8QV57vN3esixjUvcXQ==}
     engines: {node: '>=0.10.0'}
 
+  symbol-observable@4.0.0:
+    resolution: {integrity: sha512-b19dMThMV4HVFynSAM1++gBHAbk2Tc/osgLIBZMKsyqh34jb2e8Os7T6ZW/Bt3pJFdBTd2JwAnAAEQV7rSNvcQ==}
+    engines: {node: '>=0.10'}
+
   tapable@2.3.3:
     resolution: {integrity: sha512-uxc/zpqFg6x7C8vOE7lh6Lbda8eEL9zmVm/PLeTPBRhh1xCgdWaQ+J1CUieGpIfm2HdtsUpRv+HshiasBMcc6A==}
     engines: {node: '>=6'}
@@ -3207,6 +3248,9 @@ packages:
 
   warning@3.0.0:
     resolution: {integrity: sha512-jMBt6pUrKn5I+OGgtQ4YZLdhIeJmObddh6CsibPxyQ5yPZm1XExSyzC1LCNX7BzhxWgiHmizBWJTHJIjMjTQYQ==}
+
+  warning@4.0.3:
+    resolution: {integrity: sha512-rpJyN222KWIvHJ/F53XSZv0Zl/accqHR8et1kpaMTD/fLCRxtV8iX8czMzY7sVZupTI3zcUTg8eycS2kNF9l6w==}
 
   watchpack@2.5.1:
     resolution: {integrity: sha512-Zn5uXdcFNIA1+1Ei5McRd+iRzfhENPCe7LeABkJtNulSxjma+l7ltNx55BWZkRlwRnpOgHqxnjyaDgJnNXnqzg==}
@@ -5047,6 +5091,8 @@ snapshots:
 
   deep-diff@0.3.4: {}
 
+  deep-diff@1.0.2: {}
+
   deep-is@0.1.4: {}
 
   default-browser-id@5.0.1: {}
@@ -6579,6 +6625,8 @@ snapshots:
 
   symbol-observable@1.2.0: {}
 
+  symbol-observable@4.0.0: {}
+
   tapable@2.3.3: {}
 
   terser-webpack-plugin@5.5.0(webpack@5.106.2):
@@ -6676,6 +6724,10 @@ snapshots:
   vary@1.1.2: {}
 
   warning@3.0.0:
+    dependencies:
+      loose-envify: 1.4.0
+
+  warning@4.0.3:
     dependencies:
       loose-envify: 1.4.0
 
