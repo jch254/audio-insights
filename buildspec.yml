@@ -43,9 +43,14 @@ phases:
 
   post_build:
     commands:
-      - test -f .build-success || { echo "Skipping artifact deploy because build failed"; exit 0; }
-      - echo Publishing build artifacts...
-      - ./infrastructure/deploy-artifacts.bash
+      - |
+        if [ ! -f .build-success ]; then
+          echo "Skipping artifact deploy because build failed"
+          exit 0
+        fi
+
+        echo Publishing build artifacts...
+        ./infrastructure/deploy-artifacts.bash
 
 cache:
   paths:

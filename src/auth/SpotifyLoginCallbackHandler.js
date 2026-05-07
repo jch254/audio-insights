@@ -2,35 +2,43 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { loginSuccess } from './actions';
+import { loginSuccess, loginFailure } from './actions';
+import { exchangeCodeForToken } from '../spotifyApiService';
+import { getStoredPkceVerifier, removeStoredPkceVerifier } from '../utils';
 import FullscreenLoader from '../shared-components/FullscreenLoader';
 
 class SpotifyLoginCallbackHandler extends Component {
   componentDidMount() {
-    // TODO: Handle errors and utilise Immutable here
-
     const { router } = this.context;
     const { dispatch, location } = this.props;
 
-    if (!location.hash) {
+    const params = new URLSearchParams(location.search);
+    const code = params.get('code');
+    const state = params.get('state');
+    const error = params.get('error');
+    const verifier = getStoredPkceVerifier();
+
+    if (error || !code || !verifier) {
+      removeStoredPkceVerifier();
+      if (error) {
+        dispatch(loginFailure(error));
+      }
       router.push('/');
-    } else {
-      const hashArray = location.hash.substring(1).split('&');
-      const hashParams = hashArray.reduce((result, item) => {
-        const res = result;
-        const keyValPair = item.split('=');
-
-        res[keyValPair[0]] = keyValPair[1];
-
-        return res;
-      }, {});
-
-      // expires_in is in seconds so convert to milliseconds to calculate token expiry
-      const idTokenExpiryMilliseconds = Date.now() + (hashParams.expires_in * 1000);
-
-      dispatch(loginSuccess(hashParams.access_token, idTokenExpiryMilliseconds));
-      router.push(hashParams.state);
+      return;
     }
+
+    exchangeCodeForToken(code, verifier)
+      .then((tokenData) => {
+        removeStoredPkceVerifier();
+        const idTokenExpiryMilliseconds = Date.now() + (tokenData.expires_in * 1000);
+        dispatch(loginSuccess(tokenData.access_token, idTokenExpiryMilliseconds));
+        router.push(state || '/');
+      })
+      .catch((err) => {
+        removeStoredPkceVerifier();
+        dispatch(loginFailure(err.message));
+        router.push('/');
+      });
   }
 
   render() {

@@ -3,6 +3,11 @@ import Immutable, { Map } from 'immutable';
 import { put } from 'redux-saga/effects';
 
 import { actions as authActions } from './auth';
+import {
+  generatePkceVerifier,
+  generatePkceChallenge,
+  setStoredPkceVerifier,
+} from './utils';
 
 const baseUrl = 'https://api.spotify.com';
 
@@ -31,12 +36,38 @@ const checkStatus = (response) => {
     });
 };
 
-export const redirectToSpotifyLogin = (returnPath) => {
-  window.location = `https://accounts.spotify.com/authorize?
-client_id=${encodeURIComponent(process.env.SPOTIFY_CLIENT_ID)}&
-redirect_uri=${encodeURIComponent(process.env.SPOTIFY_CALLBACK_URI)}&
-scope=${encodeURIComponent(process.env.SPOTIFY_SCOPES)}&
-response_type=token&state=${encodeURIComponent(returnPath)}`;
+export const redirectToSpotifyLogin = async (returnPath) => {
+  const verifier = generatePkceVerifier();
+  const challenge = await generatePkceChallenge(verifier);
+  setStoredPkceVerifier(verifier);
+
+  const params = new URLSearchParams({
+    client_id: process.env.SPOTIFY_CLIENT_ID,
+    response_type: 'code',
+    redirect_uri: process.env.SPOTIFY_CALLBACK_URI,
+    scope: process.env.SPOTIFY_SCOPES,
+    state: returnPath,
+    code_challenge_method: 'S256',
+    code_challenge: challenge,
+  });
+
+  window.location = `https://accounts.spotify.com/authorize?${params.toString()}`;
+};
+
+export const exchangeCodeForToken = (code, codeVerifier) => {
+  const body = new URLSearchParams({
+    grant_type: 'authorization_code',
+    code,
+    redirect_uri: process.env.SPOTIFY_CALLBACK_URI,
+    client_id: process.env.SPOTIFY_CLIENT_ID,
+    code_verifier: codeVerifier,
+  });
+
+  return fetch('https://accounts.spotify.com/api/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: body.toString(),
+  }).then(checkStatus);
 };
 
 export const fetchUserProfile = idToken =>

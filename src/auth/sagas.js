@@ -1,5 +1,5 @@
 import 'isomorphic-fetch';
-import { take } from 'redux-saga/effects';
+import { call, take } from 'redux-saga/effects';
 
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT } from './actions';
 import { redirectToSpotifyLogin } from '../spotifyApiService';
@@ -9,7 +9,7 @@ export function* watchLoginRequest() {
   while (true) {
     const { returnPath } = yield take(LOGIN_REQUEST);
 
-    redirectToSpotifyLogin(returnPath);
+    yield call(redirectToSpotifyLogin, returnPath);
   }
 }
 

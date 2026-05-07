@@ -40,3 +40,30 @@ export const getStoredAuthState = () => {
     return new Map();
   }
 };
+
+const PKCE_VERIFIER = 'pkce_verifier';
+
+const base64UrlEncode = bytes =>
+  btoa(String.fromCharCode(...bytes))
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=+$/, '');
+
+export const generatePkceVerifier = () => {
+  const bytes = new Uint8Array(32);
+  window.crypto.getRandomValues(bytes);
+  return base64UrlEncode(bytes);
+};
+
+export const generatePkceChallenge = async (verifier) => {
+  const data = new TextEncoder().encode(verifier);
+  const hash = await window.crypto.subtle.digest('SHA-256', data);
+  return base64UrlEncode(new Uint8Array(hash));
+};
+
+export const setStoredPkceVerifier = verifier =>
+  sessionStorage.setItem(PKCE_VERIFIER, verifier);
+
+export const getStoredPkceVerifier = () => sessionStorage.getItem(PKCE_VERIFIER);
+
+export const removeStoredPkceVerifier = () => sessionStorage.removeItem(PKCE_VERIFIER);
