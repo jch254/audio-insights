@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Flex } from 'reflexbox';
 import Immutable from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';

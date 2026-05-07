@@ -1,10 +1,8 @@
-import React, { PropTypes } from 'react';
-import Transition from 'react-motion-ui-pack';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const FadeInTransition = ({ children }) => (
-  <Transition measure={false} component={false} enter={{ opacity: 1 }} leave={{ opacity: 0 }}>
-    {children}
-  </Transition>
+  <>{children}</>
 );
 
 FadeInTransition.propTypes = {

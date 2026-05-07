@@ -1,8 +1,11 @@
 {
-  presets: ["latest", "react"],
+  "presets": [
+    ["@babel/preset-env", {
+      "targets": ">0.25%, not dead"
+    }],
+    "@babel/preset-react"
+  ],
   plugins: [
-    "transform-inline-environment-variables",
-    "transform-class-properties",
-    "transform-object-rest-spread"
+    "@babel/plugin-proposal-class-properties"
   ]
 }

@@ -1,11 +1,12 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { loginSuccess } from './actions';
 import FullscreenLoader from '../shared-components/FullscreenLoader';
 
 class SpotifyLoginCallbackHandler extends Component {
-  componentWillMount() {
+  componentDidMount() {
     // TODO: Handle errors and utilise Immutable here
 
     const { router } = this.context;

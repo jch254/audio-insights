@@ -1,12 +1,14 @@
 .DS_Store
 node_modules/
-dist/assets/
+dist/
 *.d.ts
 .vscode/
 typings.json
 npm-debug.log
 yarn-error.log
 .terraform/
+.terraform.lock.hcl
 *.tfplan*
 *.tfstate*
+stats.json
 .history/

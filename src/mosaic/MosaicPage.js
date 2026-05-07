@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Box } from 'reflexbox';
 import {
@@ -6,7 +7,6 @@ import {
 } from 'rebass';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { bindActionCreators } from 'redux';
-import functional from 'react-functional';
 
 import AlbumArtMosaic from './AlbumArtMosaic';
 import { mosaicRequest } from './actions';
@@ -17,30 +17,40 @@ import WindowDimensionsWrapper from '../shared-components/WindowDimensionsWrappe
 import { selectors as authSelectors } from '../auth';
 import { actions as appActions } from '../app';
 
-const MosaicPage = ({ isFetching, tracks, error, actions }) => {
-  const onTileClick = trackId => actions.openModal(trackId);
+class MosaicPage extends React.Component {
+  componentDidMount() {
+    const { actions, idToken } = this.props;
 
-  return (
-    isFetching ?
-      <FullscreenLoader /> :
-      <FadeInTransition>
-        <Box key="mosaic" style={{ flex: '1 0 auto' }} >
-          {
-            error &&
-            <Message theme="error">
-              { `Error: ${JSON.stringify(error)}` }
-            </Message>
-          }
-          <WindowDimensionsWrapper>
-            <AlbumArtMosaic tracks={tracks} onTileClick={onTileClick} />
-          </WindowDimensionsWrapper>
-        </Box>
-      </FadeInTransition>
-  );
-};
+    actions.mosaicRequest(idToken);
+  }
+
+  render() {
+    const { isFetching, tracks, error, actions } = this.props;
+    const onTileClick = trackId => actions.openModal(trackId);
+
+    return (
+      isFetching ?
+        <FullscreenLoader /> :
+        <FadeInTransition>
+          <Box key="mosaic" style={{ flex: '1 0 auto' }} >
+            {
+              error &&
+              <Message theme="error">
+                { `Error: ${JSON.stringify(error)}` }
+              </Message>
+            }
+            <WindowDimensionsWrapper>
+              <AlbumArtMosaic tracks={tracks} onTileClick={onTileClick} />
+            </WindowDimensionsWrapper>
+          </Box>
+        </FadeInTransition>
+    );
+  }
+}
 
 MosaicPage.propTypes = {
   actions: PropTypes.object.isRequired,
+  idToken: PropTypes.string.isRequired,
   tracks: ImmutablePropTypes.map.isRequired,
   isFetching: PropTypes.bool.isRequired,
   error: PropTypes.object,
@@ -49,8 +59,6 @@ MosaicPage.propTypes = {
 MosaicPage.defaultProps = {
   error: null,
 };
-
-MosaicPage.componentDidMount = ({ actions, idToken }) => actions.mosaicRequest(idToken);
 
 const mapStateToProps = state => (
   {
@@ -67,4 +75,4 @@ const mapDispatchToProps = dispatch => (
   }
 );
 
-export default connect(mapStateToProps, mapDispatchToProps)(functional(MosaicPage));
+export default connect(mapStateToProps, mapDispatchToProps)(MosaicPage);

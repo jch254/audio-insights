@@ -3,7 +3,6 @@ import createSagaMiddleware from 'redux-saga';
 import createLogger from 'redux-logger';
 import { routerMiddleware, routerReducer } from 'react-router-redux';
 import recycleState from 'redux-recycle';
-import Perf from 'react-addons-perf';
 import { Iterable } from 'immutable';
 
 import { reducer as appReducer, actions as appActions } from './app';
@@ -59,17 +58,19 @@ export default function configureStore(browserHistory, initialState) {
     });
 
     middlewares.push(logger);
-
-    window.Perf = Perf;
   }
+
+  const composeEnhancers =
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ &&
+    process.env.NODE_ENV !== 'production' ?
+      window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ :
+      compose;
 
   const store = createStore(
     reducer,
     initialState,
-    compose(
+    composeEnhancers(
       applyMiddleware(...middlewares),
-      window.devToolsExtension &&
-      process.env.NODE_ENV !== 'production' ? window.devToolsExtension() : f => f,
   ));
 
   sagaMiddleware.run(rootSaga);

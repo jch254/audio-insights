@@ -1,6 +1,8 @@
-import 'babel-polyfill';
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
+import './index.css';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { Router, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
@@ -22,7 +24,9 @@ const logPageView = () => {
   }
 };
 
-ReactDOM.render(
+const root = createRoot(document.getElementById('root'));
+
+root.render(
   <Provider store={store}>
     <Router
       history={history}
@@ -30,5 +34,4 @@ ReactDOM.render(
       onUpdate={logPageView}
     />
   </Provider>,
-  document.getElementById('root'),
 );

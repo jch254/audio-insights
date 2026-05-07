@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Flex, Box } from 'reflexbox';
 import {
@@ -12,7 +13,6 @@ import {
 } from 'rebass';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { bindActionCreators } from 'redux';
-import functional from 'react-functional';
 
 import RecommendedTracksList from './RecommendedTracksList';
 import { recommendedTracksRequest, createRecommendedPlaylistRequest } from './actions';
@@ -29,117 +29,126 @@ import FullscreenLoader from '../shared-components/FullscreenLoader';
 import { actions as appActions } from '../app';
 import { selectors as authSelectors } from '../auth';
 
-const RecommendedPage = ({
-  actions,
-  idToken,
-  isFetching,
-  isCreatingPlaylist,
-  isPlaylistCreated,
-  recommendedTracks,
-  targetAttributePercentages,
-  error,
-}) => {
-  const onTrackClick = trackId => actions.openModal(trackId);
+class RecommendedPage extends React.Component {
+  componentDidMount() {
+    const { actions, idToken } = this.props;
 
-  return (
-    isFetching ?
-      <FullscreenLoader /> :
-      <FadeInTransition>
-        <Box key="recommended" style={{ flex: '1 0 auto' }}>
-          <Overlay key="loading" open={isCreatingPlaylist}>
-            <FullscreenLoader delay={0} />
-          </Overlay>
-          <Container pb={2}>
-            <PageHeader
-              my={2}
-              py={2}
-              description="Based on features of your top tracks"
-              heading="Recommended"
-            >
+    actions.recommendedTracksRequest(idToken);
+  }
+
+  render() {
+    const {
+      actions,
+      idToken,
+      isFetching,
+      isCreatingPlaylist,
+      isPlaylistCreated,
+      recommendedTracks,
+      targetAttributePercentages,
+      error,
+    } = this.props;
+    const onTrackClick = trackId => actions.openModal(trackId);
+
+    return (
+      isFetching ?
+        <FullscreenLoader /> :
+        <FadeInTransition>
+          <Box key="recommended" style={{ flex: '1 0 auto' }}>
+            <Overlay key="loading" open={isCreatingPlaylist}>
+              <FullscreenLoader delay={0} />
+            </Overlay>
+            <Container pb={2}>
+              <PageHeader
+                my={2}
+                py={2}
+                description="Based on features of your top tracks"
+                heading="Recommended"
+              >
+                {
+                  isPlaylistCreated ?
+                    !error &&
+                    <ButtonOutline
+                      mt={2}
+                      pill
+                      big
+                      color="green"
+                      style={{ cursor: 'default' }}
+                    >
+                      Playlist saved to Spotify
+                    </ButtonOutline> :
+                    !error &&
+                    <Button
+                      mt={2}
+                      pill
+                      big
+                      onClick={() => actions.createRecommendedPlaylistRequest(idToken)}
+                      backgroundColor="green"
+                    >
+                      Save playlist to Spotify
+                    </Button>
+
+                }
+              </PageHeader>
               {
-                isPlaylistCreated ?
-                  !error &&
-                  <ButtonOutline
-                    mt={2}
-                    pill
-                    big
-                    color="green"
-                    style={{ cursor: 'default' }}
-                  >
-                    Playlist saved to Spotify
-                  </ButtonOutline> :
-                  !error &&
-                  <Button
-                    mt={2}
-                    pill
-                    big
-                    onClick={() => actions.createRecommendedPlaylistRequest(idToken)}
-                    backgroundColor="green"
-                  >
-                    Save playlist to Spotify
-                  </Button>
-
+                error &&
+                <Message theme="error">
+                  { `Error: ${JSON.stringify(error)}` }
+                </Message>
               }
-            </PageHeader>
-            {
-              error &&
-              <Message theme="error">
-                { `Error: ${JSON.stringify(error)}` }
-              </Message>
-            }
-            <Flex wrap justify="space-between" pb={2} gutter={2} align="center">
-              <Stat
-                m={2}
-                label="Acousticness"
-                color="green"
-                unit="%"
-                value={targetAttributePercentages.get('acousticness')}
+              <Flex wrap justify="space-between" pb={2} gutter={2} align="center">
+                <Stat
+                  m={2}
+                  label="Acousticness"
+                  color="green"
+                  unit="%"
+                  value={targetAttributePercentages.get('acousticness')}
+                />
+                <Stat
+                  m={2}
+                  label="Danceability"
+                  color="green"
+                  unit="%"
+                  value={targetAttributePercentages.get('danceability')}
+                />
+                <Stat
+                  m={2}
+                  label="Energy"
+                  color="green"
+                  unit="%"
+                  value={targetAttributePercentages.get('energy')}
+                />
+                <Stat
+                  m={2}
+                  label="Instrumentalness"
+                  color="green"
+                  unit="%"
+                  value={targetAttributePercentages.get('instrumentalness')}
+                />
+                <Stat
+                  m={2}
+                  label="Speechiness"
+                  color="green"
+                  unit="%"
+                  value={targetAttributePercentages.get('speechiness')}
+                />
+                <Stat
+                  m={2}
+                  label="Valence"
+                  color="green"
+                  unit="%"
+                  value={targetAttributePercentages.get('valence')}
+                />
+              </Flex>
+              <RecommendedTracksList
+                recommendedTracks={recommendedTracks}
+                onTrackClick={onTrackClick}
               />
-              <Stat
-                m={2}
-                label="Danceability"
-                color="green"
-                unit="%"
-                value={targetAttributePercentages.get('danceability')}
-              />
-              <Stat
-                m={2}
-                label="Energy"
-                color="green"
-                unit="%"
-                value={targetAttributePercentages.get('energy')}
-              />
-              <Stat
-                m={2}
-                label="Instrumentalness"
-                color="green"
-                unit="%"
-                value={targetAttributePercentages.get('instrumentalness')}
-              />
-              <Stat
-                m={2}
-                label="Speechiness"
-                color="green"
-                unit="%"
-                value={targetAttributePercentages.get('speechiness')}
-              />
-              <Stat
-                m={2}
-                label="Valence"
-                color="green"
-                unit="%"
-                value={targetAttributePercentages.get('valence')}
-              />
-            </Flex>
-            <RecommendedTracksList
-              recommendedTracks={recommendedTracks}
-              onTrackClick={onTrackClick}
-            />
-          </Container>
-        </Box>
-      </FadeInTransition>
-  );
-};
+            </Container>
+          </Box>
+        </FadeInTransition>
+    );
+  }
+}
 
 RecommendedPage.propTypes = {
   actions: PropTypes.object.isRequired,
@@ -155,8 +164,6 @@ RecommendedPage.propTypes = {
 RecommendedPage.defaultProps = {
   error: null,
 };
-
-RecommendedPage.componentDidMount = ({ actions, idToken }) => actions.recommendedTracksRequest(idToken);
 
 const mapStateToProps = state => (
   {
@@ -179,4 +186,4 @@ const mapDispatchToProps = dispatch => (
   }
 );
 
-export default connect(mapStateToProps, mapDispatchToProps)(functional(RecommendedPage));
+export default connect(mapStateToProps, mapDispatchToProps)(RecommendedPage);
