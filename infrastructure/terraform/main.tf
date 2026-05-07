@@ -50,6 +50,9 @@ locals {
   codebuild_project_arn   = "arn:aws:codebuild:${var.aws_region}:${data.aws_caller_identity.current.account_id}:project/${var.codebuild_project_name}"
   deployment_bucket_arn   = "arn:aws:s3:::${local.bucket_name}"
 
+  build_notifier_region              = coalesce(var.build_notifier_region, var.aws_region)
+  build_notifier_lambda_function_arn = "arn:aws:lambda:${local.build_notifier_region}:${data.aws_caller_identity.current.account_id}:function:${var.build_notifier_lambda_function_name}"
+
   acm_validation_record = one(values(module.acm_certificate.validation_records))
 
   cloudfront_policy_statement = {
@@ -248,6 +251,8 @@ module "codebuild_role" {
 
   codebuild_project_arns = [local.codebuild_project_arn]
 
+  lambda_permission_function_arns = [local.build_notifier_lambda_function_arn]
+
   enable_acm = true
 
   additional_policy_statements = concat(
@@ -278,7 +283,7 @@ module "codebuild_deploy_project" {
   create_log_group                   = true
   webhook_enabled                    = var.codebuild_webhook_enabled
   environment                        = var.environment
-  build_notifier_lambda_function_arn = var.build_notifier_lambda_function_arn
+  build_notifier_lambda_function_arn = local.build_notifier_lambda_function_arn
   build_notifier_app_url             = "https://${var.host}"
   build_notifier_github_repo_url     = trimsuffix(var.codebuild_source_location, ".git")
 
