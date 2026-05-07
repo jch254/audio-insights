@@ -33,7 +33,7 @@ const App = ({ children, location, currentTerm, isDropdownOpen, idToken, actions
   };
 
   return (
-    <Flex flexColumn style={{ height: '100%' }}>
+    <Flex flexColumn style={{ minHeight: '100vh' }}>
       <Navbar
         isDropdownOpen={isDropdownOpen}
         isLoggedIn={idToken != null}
