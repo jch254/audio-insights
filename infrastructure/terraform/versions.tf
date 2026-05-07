@@ -14,9 +14,9 @@ terraform {
   }
 
   backend "s3" {
-    bucket  = "603-terraform-remote-state"
+    bucket  = "jch254-terraform-remote-state"
     key     = "audio-insights"
-    region  = "ap-southeast-2"
+    region  = "ap-southeast-4"
     encrypt = true
   }
 }

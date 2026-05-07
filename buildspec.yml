@@ -2,8 +2,8 @@ version: 0.2
 
 env:
   variables:
-    AWS_DEFAULT_REGION: "ap-southeast-2"
-    REMOTE_STATE_BUCKET: "603-terraform-remote-state"
+    AWS_DEFAULT_REGION: "ap-southeast-4"
+    REMOTE_STATE_BUCKET: "jch254-terraform-remote-state"
     TF_STATE_KEY: "audio-insights"
     APP_HOSTNAME: "audio-insights.603.nz"
     SPOTIFY_CALLBACK_URI: "https://audio-insights.603.nz/spotifylogincallback"

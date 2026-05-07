@@ -1,7 +1,7 @@
 variable "aws_region" {
   description = "AWS region for the CodeBuild deployment project and S3 bucket."
   type        = string
-  default     = "ap-southeast-2"
+  default     = "ap-southeast-4"
 }
 
 variable "environment" {
@@ -25,7 +25,7 @@ variable "host" {
 variable "bucket_name" {
   description = "S3 bucket name used for the private CloudFront origin."
   type        = string
-  default     = "audio-insights.603.nz"
+  default     = "audio-insights-603-nz-prod"
 }
 
 variable "cloudflare_api_token_parameter_name" {
@@ -61,7 +61,7 @@ variable "spotify_scopes" {
 variable "kms_key_arns" {
   description = "KMS key ARNs CodeBuild can use to decrypt SecureString parameters, when those parameters use a customer-managed key."
   type        = list(string)
-  default     = ["arn:aws:kms:ap-southeast-2:982898479788:key/0ec9686b-13a1-40fc-8256-86e8d3503e9c"]
+  default     = ["arn:aws:kms:ap-southeast-4:982898479788:key/0ec9686b-13a1-40fc-8256-86e8d3503e9c"]
 }
 
 variable "codebuild_project_name" {
@@ -103,13 +103,13 @@ variable "codebuild_build_docker_tag" {
 variable "codebuild_cache_bucket" {
   description = "Optional S3 bucket/prefix for CodeBuild dependency cache."
   type        = string
-  default     = "603-codebuild-cache/audio-insights"
+  default     = "jch254-codebuild-cache/audio-insights"
 }
 
 variable "remote_state_bucket" {
   description = "S3 bucket used for Terraform remote state."
   type        = string
-  default     = "603-terraform-remote-state"
+  default     = "jch254-terraform-remote-state"
 }
 
 variable "remote_state_key" {

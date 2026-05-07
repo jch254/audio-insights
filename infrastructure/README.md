@@ -45,8 +45,7 @@ state.
 ## State
 
 Remote state is stored in S3:
-`s3://603-terraform-remote-state/audio-insights` in `ap-southeast-2`.
-
+`s3://jch254-terraform-remote-state/audio-insights` in `ap-southeast-4`.
 ## Module versions
 
 This repo expects shared `terraform-modules` tag `1.17.0` or newer for the
@@ -75,15 +74,15 @@ terraform apply
 Populate SSM parameters after bootstrap:
 
 ```bash
-aws ssm put-parameter --region ap-southeast-2 \
+aws ssm put-parameter --region ap-southeast-4 \
   --name /audio-insights/cloudflare-api-token \
   --type SecureString --value "$CLOUDFLARE_API_TOKEN" --overwrite
 
-aws ssm put-parameter --region ap-southeast-2 \
+aws ssm put-parameter --region ap-southeast-4 \
   --name /audio-insights/ga-id \
   --type SecureString --value "$GA_ID" --overwrite
 
-aws ssm put-parameter --region ap-southeast-2 \
+aws ssm put-parameter --region ap-southeast-4 \
   --name /audio-insights/spotify-client-id \
   --type SecureString --value "$SPOTIFY_CLIENT_ID" --overwrite
 ```

@@ -54,7 +54,7 @@ locals {
 
   cloudfront_policy_statement = {
     Effect = "Allow"
-    Action = [
+    Action = tolist([
       "cloudfront:GetDistribution",
       "cloudfront:GetDistributionConfig",
       "cloudfront:CreateDistribution",
@@ -69,14 +69,14 @@ locals {
       "cloudfront:CreateOriginAccessControl",
       "cloudfront:UpdateOriginAccessControl",
       "cloudfront:DeleteOriginAccessControl",
-    ]
-    Resource = "*"
+    ])
+    Resource = tolist(["*"])
   }
 
   deployment_bucket_policy_statements = [
     {
       Effect = "Allow"
-      Action = [
+      Action = tolist([
         "s3:GetBucketLocation",
         "s3:ListBucket",
         "s3:GetBucketPolicy",
@@ -91,50 +91,50 @@ locals {
         "s3:DeleteBucket",
         "s3:GetBucketCORS",
         "s3:PutBucketCORS",
-      ]
-      Resource = local.deployment_bucket_arn
+      ])
+      Resource = tolist([local.deployment_bucket_arn])
     },
     {
       Effect = "Allow"
-      Action = [
+      Action = tolist([
         "s3:GetObject",
         "s3:PutObject",
         "s3:DeleteObject",
         "s3:GetObjectAcl",
         "s3:PutObjectAcl",
-      ]
-      Resource = "${local.deployment_bucket_arn}/*"
+      ])
+      Resource = tolist(["${local.deployment_bucket_arn}/*"])
     },
   ]
 
   codebuild_cache_statements = local.codebuild_cache_bucket_name == "" ? [] : [
     {
       Effect = "Allow"
-      Action = [
+      Action = tolist([
         "s3:GetBucketLocation",
         "s3:ListBucket",
-      ]
-      Resource = "arn:aws:s3:::${local.codebuild_cache_bucket_name}"
+      ])
+      Resource = tolist(["arn:aws:s3:::${local.codebuild_cache_bucket_name}"])
     },
     {
       Effect = "Allow"
-      Action = [
+      Action = tolist([
         "s3:GetObject",
         "s3:PutObject",
         "s3:DeleteObject",
-      ]
-      Resource = local.codebuild_cache_object_arn
+      ])
+      Resource = tolist([local.codebuild_cache_object_arn])
     },
   ]
 
   kms_decrypt_statements = length(var.kms_key_arns) == 0 ? [] : [
     {
       Effect = "Allow"
-      Action = [
+      Action = tolist([
         "kms:Decrypt",
         "kms:DescribeKey",
-      ]
-      Resource = var.kms_key_arns
+      ])
+      Resource = tolist(var.kms_key_arns)
     },
   ]
 }
