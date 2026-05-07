@@ -41,12 +41,18 @@ importers:
       moment:
         specifier: ^2.30.1
         version: 2.30.1
+      object-assign:
+        specifier: ^4.1.1
+        version: 4.1.1
       performance-now:
         specifier: ^2.1.0
         version: 2.1.0
       prop-types:
         specifier: ^15.8.1
         version: 15.8.1
+      query-string:
+        specifier: '4'
+        version: 4.3.4
       raf:
         specifier: ^3.4.1
         version: 3.4.1
