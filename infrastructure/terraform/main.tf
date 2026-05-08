@@ -130,16 +130,6 @@ locals {
     },
   ]
 
-  kms_decrypt_statements = length(var.kms_key_arns) == 0 ? [] : [
-    {
-      Effect = "Allow"
-      Action = tolist([
-        "kms:Decrypt",
-        "kms:DescribeKey",
-      ])
-      Resource = tolist(var.kms_key_arns)
-    },
-  ]
 }
 
 module "cloudflare_api_token_parameter" {
@@ -259,7 +249,6 @@ module "codebuild_role" {
     [local.cloudfront_policy_statement],
     local.deployment_bucket_policy_statements,
     local.codebuild_cache_statements,
-    local.kms_decrypt_statements,
   )
 }
 

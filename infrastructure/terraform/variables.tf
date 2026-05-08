@@ -58,12 +58,6 @@ variable "spotify_scopes" {
   default     = "user-top-read playlist-modify-private"
 }
 
-variable "kms_key_arns" {
-  description = "KMS key ARNs CodeBuild can use to decrypt SecureString parameters, when those parameters use a customer-managed key."
-  type        = list(string)
-  default     = ["arn:aws:kms:ap-southeast-4:982898479788:key/0ec9686b-13a1-40fc-8256-86e8d3503e9c"]
-}
-
 variable "codebuild_project_name" {
   description = "Name of the CodeBuild project that builds and deploys the SPA."
   type        = string
