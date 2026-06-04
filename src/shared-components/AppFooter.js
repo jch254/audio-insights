@@ -25,8 +25,8 @@ const AppFooter = () => (
       <NavItem color="midgray" style={{ fontWeight: 'normal', fontSize: '12px', cursor: 'default' }}>
         { '//' }
       </NavItem>
-      <NavItem color="midgray" href="https://603.nz" style={{ fontWeight: 'normal', fontSize: '12px' }}>
-        {`© 603.nz ${moment().year()}`}
+      <NavItem color="midgray" href="https://jch254.com" style={{ fontWeight: 'normal', fontSize: '12px' }}>
+        {`© Jordan Hornblow ${moment().year()}`}
       </NavItem>
     </Toolbar>
   </Box>
